@@ -44,27 +44,42 @@ Or just describe what you want: "I want to build..."
 
 ## Installation
 
-### For OpenCode Users
+### npm (Recommended)
 
-Copy the `.opencode/` folder to your project, or clone and reference:
+Add to your `opencode.json`:
 
-```bash
-git clone https://github.com/SwiggitySwerve/locus.git ~/.locus
-```
-
-Then in your project's `opencode.json`:
 ```json
 {
-  "instructions": ["~/.locus/.opencode/skills/locus/SKILL.md"]
+  "plugin": ["opencode-locus"]
 }
 ```
 
-### Full Framework (includes tests & CLI)
+That's it! OpenCode will automatically install the plugin on startup.
+
+### Manual Installation
+
+Clone the repo and copy the skill:
+
+```bash
+git clone https://github.com/SwiggitySwerve/locus.git
+cp -r locus/.opencode/skills/locus ~/.config/opencode/skills/
+```
+
+Or reference it directly in `opencode.json`:
+
+```json
+{
+  "instructions": ["~/.config/opencode/skills/locus/SKILL.md"]
+}
+```
+
+### Development Setup
 
 ```bash
 git clone https://github.com/SwiggitySwerve/locus.git
 cd locus
 npm install
+npm test  # 79 tests
 ```
 
 ## For Power Users

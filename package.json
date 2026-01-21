@@ -1,16 +1,59 @@
 {
-  "name": "locus",
+  "name": "opencode-locus",
   "version": "1.0.0",
-  "description": "AI-powered project planning - your center point for building",
+  "description": "AI-powered project planning for OpenCode - Vision → Features → Design → Build",
   "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./skill": "./.opencode/skills/locus/SKILL.md"
+  },
+  "files": [
+    "dist",
+    ".opencode/skills/locus",
+    "opencode.json"
+  ],
   "scripts": {
+    "build": "tsc -p tsconfig.plugin.json",
+    "prepublishOnly": "npm run build",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "typecheck": "tsc --noEmit",
     "cli": "npx tsx openspec/bin/cli.ts"
   },
+  "keywords": [
+    "opencode",
+    "opencode-plugin",
+    "ai",
+    "planning",
+    "project-management",
+    "workflow"
+  ],
+  "author": "swiggityswerve",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SwiggitySwerve/locus.git"
+  },
+  "bugs": {
+    "url": "https://github.com/SwiggitySwerve/locus/issues"
+  },
+  "homepage": "https://github.com/SwiggitySwerve/locus#readme",
+  "peerDependencies": {
+    "@opencode-ai/plugin": ">=1.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@opencode-ai/plugin": {
+      "optional": true
+    }
+  },
   "devDependencies": {
+    "@opencode-ai/plugin": "^1.1.28",
     "@types/node": "^20.10.0",
     "glob": "^10.3.10",
     "ts-node": "^10.9.2",
