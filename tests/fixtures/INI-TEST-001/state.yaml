@@ -1,0 +1,16 @@
+# INI-TEST-001: Empty initiative (just created)
+metadata:
+  id: INI-TEST-001
+  title: Empty Test Initiative
+  created_at: "2026-01-20T10:00:00Z"
+  updated_at: "2026-01-20T10:00:00Z"
+  mode: strict
+  allow_overlap: false
+
+stage: draft
+
+history: []
+
+escalations: []
+
+blockers: []

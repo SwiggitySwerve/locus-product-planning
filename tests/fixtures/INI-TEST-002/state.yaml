@@ -1,0 +1,23 @@
+# INI-TEST-002: Tier 1 complete
+metadata:
+  id: INI-TEST-002
+  title: Tier 1 Complete Initiative
+  created_at: "2026-01-15T10:00:00Z"
+  updated_at: "2026-01-16T14:00:00Z"
+  mode: strict
+  allow_overlap: false
+
+stage: tier1_approved
+
+history:
+  - from: draft
+    to: tier1_active
+    timestamp: "2026-01-15T10:00:00Z"
+  - from: tier1_active
+    to: tier1_approved
+    timestamp: "2026-01-16T14:00:00Z"
+    gate: strategic
+
+escalations: []
+
+blockers: []

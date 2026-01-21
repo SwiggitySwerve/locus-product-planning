@@ -1,0 +1,9 @@
+id: EP-002
+title: UI Component Updates
+description: Update all UI components to use theme variables
+moscow: should
+complexity: L
+acceptance_criteria:
+  - All components use CSS variables
+  - No hardcoded colors remain
+  - Visual regression tests pass

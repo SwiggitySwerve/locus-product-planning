@@ -1,0 +1,202 @@
+# OpenSpec Project Configuration
+# This file defines project-wide settings for the Initiative Flow system
+
+# Schema to use for initiatives
+schema: initiative-flow
+
+# Context for AI agents working on initiatives
+context: |
+  This project uses the Initiative Flow Framework to orchestrate work through
+  organizational tiers. Each tier produces artifacts that must pass machine-checkable
+  gates before work can proceed to the next tier.
+
+  Key principles:
+  1. Work flows from strategic (WHY) to tactical (HOW)
+  2. Each tier has a dedicated council that owns decisions
+  3. Gates enforce quality and completeness
+  4. Escalations flow upward when issues arise
+  5. State is deterministic - computed from filesystem
+
+# Rules by context type
+rules:
+  # General rules for all agents
+  general:
+    - Query status before creating any artifact
+    - Respect artifact dependency chains
+    - Validate gates before requesting transitions
+    - Use templates for artifact creation
+    - Keep state.yaml synchronized via state-machine API
+
+  # Rules for tier-specific work
+  tier1:
+    - All strategic decisions require executive sponsor
+    - Vision alignment must be explicitly confirmed
+    - Success metrics must be measurable
+    - Risk assessment is mandatory
+
+  tier2:
+    - All epics require MoSCoW prioritization
+    - PRD must reference strategic mandate
+    - Scope boundaries must be explicit
+    - User personas must be defined
+
+  tier3:
+    - ADRs required for significant technical decisions
+    - All tasks must specify required skills
+    - Stories must have acceptance criteria
+    - Dependencies between tasks must be explicit
+
+  tier4:
+    - Progress tracking must be updated in real-time
+    - Code reviews required before completion
+    - All tasks must be assigned to specialists
+    - Blockers must be escalated within 24 hours
+
+  # Rules for gate validation
+  gates:
+    - Never bypass gate criteria
+    - Report all failing criteria with reasons
+    - Escalations block gate passage until resolved
+    - Auto-transition only when all criteria pass
+
+  # Rules for escalation handling
+  escalations:
+    - Escalate scope increases to Tier 1
+    - Escalate technical blocks to Tier 3
+    - Escalate resource conflicts to Tier 2
+    - All escalations require resolution before gate passage
+
+# Gate configuration
+gates:
+  # Mode determines how strictly gates are enforced
+  # - strict: All criteria must pass, manual approval required
+  # - auto: Automatic transition when criteria pass
+  # - configurable: Per-initiative setting
+  mode: strict
+
+# Escalation configuration
+escalation:
+  # Auto-escalation triggers (when to automatically create escalations)
+  auto_escalate:
+    # Trigger if scope increases by more than this percentage
+    scope_increase_percent: 20
+
+    # Trigger if timeline slips by more than this many days
+    timeline_slip_days: 7
+
+    # Trigger if a blocker remains unresolved for this many hours
+    blocker_unresolved_hours: 48
+
+  # Escalation targets by issue type
+  targets:
+    scope_change: tier1      # Strategic decisions
+    resource_conflict: tier2  # Product prioritization
+    technical_block: tier3    # Architecture guidance
+    quality_issue: tier4      # Code review council
+
+  # Severity levels and response times
+  severity_sla:
+    critical: 4   # hours
+    high: 24      # hours
+    medium: 48    # hours
+    low: 168      # hours (1 week)
+
+# Notification configuration (for future webhook integration)
+notifications:
+  # Events that trigger notifications
+  events:
+    - gate_passed
+    - gate_failed
+    - escalation_created
+    - escalation_resolved
+    - stage_transition
+    - initiative_completed
+
+  # Channels (placeholder for integration)
+  channels:
+    slack: false
+    email: false
+    webhook: false
+
+# Archive configuration
+archive:
+  # Where to move completed initiatives
+  destination: archive/{year}/{month}/{initiative_id}/
+
+  # Whether to update organization specs after completion
+  update_specs: false
+
+  # Retention period in days (0 = forever)
+  retention_days: 0
+
+# Paths configuration
+paths:
+  # Where initiatives are stored
+  initiatives: openspec/initiatives
+
+  # Where schemas are defined
+  schemas: openspec/schemas
+
+  # Where specs are stored (organizational definitions)
+  specs: openspec/specs
+
+  # Where templates are located
+  templates: openspec/schemas/initiative-flow/templates
+
+# Skill routing configuration
+skill_routing:
+  # Default skills by artifact type
+  defaults:
+    strategic-mandate:
+      - ceo-strategist
+      - cto-architect
+    prd:
+      - product-manager
+      - cpo-product
+    epics:
+      - product-manager
+      - scrum-master
+    adrs:
+      - principal-engineer
+      - architect-reviewer
+    stories:
+      - tech-lead
+      - product-manager
+    tasks:
+      - tech-lead
+      - engineering-manager
+    implementation:
+      - dev-coordinator
+    review:
+      - code-review-council
+
+  # Skill selection strategy
+  # - first: Use first available skill
+  # - round_robin: Rotate through available skills
+  # - load_balanced: Choose least busy skill
+  strategy: first
+
+# Validation configuration
+validation:
+  # Require frontmatter in markdown files
+  require_frontmatter: true
+
+  # Required fields by file type
+  required_fields:
+    strategic-mandate.md:
+      - vision_aligned
+      - sponsor
+      - success_metrics
+    epic.yaml:
+      - id
+      - title
+      - moscow
+    story.yaml:
+      - id
+      - title
+    task.yaml:
+      - id
+      - title
+      - skills_required
+    progress.yaml:
+      - all_complete

@@ -1,0 +1,41 @@
+# Task Template
+# Parent: Story
+# Created by: Architecture Council (Tier 3)
+
+id: TK-${ID}
+title: ${TITLE}
+
+description: |
+  ${DESCRIPTION}
+
+# Parent reference
+story_id: ST-${STORY_ID}
+
+# Status
+status: pending  # pending | in_progress | review | done | blocked
+
+# Required skills
+skills_required:
+  - ${SKILL}
+
+# Estimation
+estimated_hours: ${HOURS}
+
+# Dependencies on other tasks
+dependencies: []
+
+# Implementation notes
+implementation_notes: |
+  ${NOTES}
+
+# Files likely to be changed
+affected_files:
+  - ${FILE_PATH}
+
+# Test requirements
+test_requirements:
+  - ${TEST_REQUIREMENT}
+
+# Metadata
+created_at: ${DATE}
+updated_at: ${DATE}

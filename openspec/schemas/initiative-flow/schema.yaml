@@ -1,0 +1,357 @@
+name: initiative-flow
+version: 1
+description: Organizational initiative workflow - strategic -> product -> architecture -> implementation
+
+# Tier definitions
+tiers:
+  - id: tier1
+    name: Strategic Review
+    council: executive-council
+    skills:
+      - ceo-strategist
+      - cto-architect
+      - cfo-analyst
+      - coo-operations
+      - cpo-product
+
+  - id: tier2
+    name: Product Planning
+    council: product-council
+    skills:
+      - product-manager
+      - project-manager
+      - scrum-master
+      - program-manager
+      - roadmap-strategist
+
+  - id: tier3
+    name: Technical Design
+    council: architecture-council
+    skills:
+      - tech-lead
+      - staff-engineer
+      - principal-engineer
+      - engineering-manager
+      - architect-reviewer
+
+  - id: tier4
+    name: Implementation
+    council: code-review-council
+    coordinator: dev-coordinator
+    skills:
+      core:
+        - frontend-developer
+        - backend-developer
+        - fullstack-developer
+        - mobile-developer
+      languages:
+        - typescript-pro
+        - python-pro
+        - golang-pro
+        - rust-engineer
+        - java-architect
+      infrastructure:
+        - devops-engineer
+        - sre-engineer
+        - platform-engineer
+        - cloud-architect
+        - kubernetes-specialist
+        - security-engineer
+      data-ai:
+        - data-engineer
+        - ml-engineer
+        - data-scientist
+        - llm-architect
+      quality:
+        - qa-expert
+        - performance-engineer
+        - accessibility-tester
+        - security-auditor
+
+# Artifact definitions (OpenSpec pattern)
+artifacts:
+  # Tier 1: Strategic Review
+  - id: strategic-mandate
+    tier: tier1
+    generates: tier1/strategic-mandate.md
+    template: strategic-mandate.md
+    description: Executive approval and strategic alignment
+    instruction: |
+      Create the strategic mandate that establishes WHY this initiative matters.
+
+      Sections:
+      - **Vision Alignment**: How does this advance our long-term vision?
+      - **Strategic Priority**: Where does this fit in our current priorities?
+      - **Resource Commitment**: What resources are we committing?
+      - **Success Metrics**: How will we measure success?
+      - **Risks & Mitigations**: Key risks and how we'll address them
+      - **Sponsor**: Executive sponsor for this initiative
+
+      This document is the foundation - all subsequent tiers build on this mandate.
+    requires: []
+    gate: strategic
+
+  # Tier 2: Product Planning
+  - id: prd
+    tier: tier2
+    generates: tier2/prd.md
+    template: prd.md
+    description: Product Requirements Document
+    instruction: |
+      Create the PRD that defines WHAT we're building and for whom.
+
+      Sections:
+      - **Problem Statement**: What problem are we solving?
+      - **User Personas**: Who are we building for?
+      - **User Stories**: High-level user stories
+      - **Success Criteria**: How do we know we succeeded?
+      - **Scope**: What's in/out of scope
+      - **Dependencies**: External dependencies
+
+      Reference the strategic mandate for context and constraints.
+    requires:
+      - strategic-mandate
+
+  - id: epics
+    tier: tier2
+    generates: tier2/epics/*.yaml
+    template: epic.yaml
+    description: Epic definitions with MoSCoW prioritization
+    instruction: |
+      Create epic files that break down the PRD into major deliverables.
+
+      Each epic MUST have:
+      - Clear title and description
+      - MoSCoW priority (must/should/could/wont)
+      - Acceptance criteria
+      - Estimated complexity (T-shirt size)
+
+      Create one file per epic: tier2/epics/EP-001-name.yaml
+    requires:
+      - prd
+    gate: product
+
+  # Tier 3: Technical Design
+  - id: adrs
+    tier: tier3
+    generates: tier3/adrs/*.md
+    template: adr.md
+    description: Architecture Decision Records
+    instruction: |
+      Create ADRs for significant technical decisions.
+
+      Each ADR MUST follow the format:
+      - **Status**: Proposed/Accepted/Deprecated/Superseded
+      - **Context**: What is the issue we're addressing?
+      - **Decision**: What is the change we're making?
+      - **Consequences**: What becomes easier/harder?
+      - **Alternatives Considered**: What else did we consider?
+
+      Create one ADR per major decision: tier3/adrs/ADR-001-title.md
+    requires:
+      - epics
+
+  - id: stories
+    tier: tier3
+    generates: tier3/stories/*.yaml
+    template: story.yaml
+    description: User stories with technical refinement
+    instruction: |
+      Refine stories with technical details and acceptance criteria.
+
+      Each story MUST have:
+      - User story format (As a... I want... So that...)
+      - Acceptance criteria (Given/When/Then)
+      - Technical notes
+      - Required skills
+      - Story points estimate
+      - MoSCoW priority
+
+      Create one file per story: tier3/stories/ST-001-name.yaml
+    requires:
+      - adrs
+      - epics
+
+  - id: tasks
+    tier: tier3
+    generates: tier3/tasks/*.yaml
+    template: task.yaml
+    description: Implementation tasks
+    instruction: |
+      Break stories into implementable tasks.
+
+      Each task MUST have:
+      - Clear title and description
+      - Parent story reference
+      - Required skills
+      - Estimated hours
+      - Dependencies (other tasks)
+
+      Tasks should be small enough to complete in one session.
+    requires:
+      - stories
+    gate: design
+
+  # Tier 4: Implementation
+  - id: implementation
+    tier: tier4
+    generates: tier4/progress.yaml
+    template: progress.yaml
+    description: Implementation progress tracking
+    instruction: |
+      Track implementation progress across all tasks.
+
+      This file is updated as work progresses:
+      - Task status (pending/in_progress/review/done)
+      - Assignee (which specialist agent)
+      - PR references
+      - Blockers
+
+      The dev-coordinator maintains this file.
+    requires:
+      - tasks
+
+  - id: review
+    tier: tier4
+    generates: tier4/reviews/*.md
+    template: review.md
+    description: Code review outcomes
+    instruction: |
+      Document code review outcomes from the Code Review Council.
+
+      Each review MUST include:
+      - PR reference
+      - Reviewers (which perspectives)
+      - Decision (approved/changes_requested/rejected)
+      - Feedback summary
+    requires:
+      - implementation
+    gate: implementation
+
+# Gate definitions with machine-checkable criteria
+gates:
+  strategic:
+    description: Executive Council has approved strategic fit
+    from_artifacts:
+      - strategic-mandate
+    to_tier: tier2
+    criteria:
+      - id: mandate_exists
+        check: file_exists
+        path: tier1/strategic-mandate.md
+        description: Strategic mandate document created
+
+      - id: vision_aligned
+        check: field_value
+        path: tier1/strategic-mandate.md
+        field: vision_aligned
+        expected: true
+        description: Vision alignment confirmed
+
+      - id: sponsor_identified
+        check: field_not_empty
+        path: tier1/strategic-mandate.md
+        field: sponsor
+        description: Executive sponsor assigned
+
+      - id: success_metrics
+        check: field_not_empty
+        path: tier1/strategic-mandate.md
+        field: success_metrics
+        description: Success metrics defined
+
+  product:
+    description: Product planning complete
+    from_artifacts:
+      - prd
+      - epics
+    to_tier: tier3
+    criteria:
+      - id: prd_exists
+        check: file_exists
+        path: tier2/prd.md
+        description: PRD document created
+
+      - id: epics_defined
+        check: glob_min_count
+        pattern: tier2/epics/*.yaml
+        min: 1
+        description: At least one epic defined
+
+      - id: moscow_applied
+        check: all_have_field
+        pattern: tier2/epics/*.yaml
+        field: moscow
+        description: All epics have MoSCoW priority
+
+  design:
+    description: Technical design complete
+    from_artifacts:
+      - adrs
+      - stories
+      - tasks
+    to_tier: tier4
+    criteria:
+      - id: adrs_exist
+        check: glob_min_count
+        pattern: tier3/adrs/*.md
+        min: 1
+        description: At least one ADR created
+
+      - id: stories_refined
+        check: glob_min_count
+        pattern: tier3/stories/*.yaml
+        min: 1
+        description: Stories created
+
+      - id: tasks_created
+        check: glob_min_count
+        pattern: tier3/tasks/*.yaml
+        min: 1
+        description: Tasks broken down
+
+      - id: skills_assigned
+        check: all_have_field
+        pattern: tier3/tasks/*.yaml
+        field: skills_required
+        description: All tasks have required skills
+
+  implementation:
+    description: Implementation complete and reviewed
+    from_artifacts:
+      - implementation
+      - review
+    terminal: true
+    criteria:
+      - id: progress_exists
+        check: file_exists
+        path: tier4/progress.yaml
+        description: Progress tracking file exists
+
+      - id: all_tasks_done
+        check: field_value
+        path: tier4/progress.yaml
+        field: all_complete
+        expected: true
+        description: All tasks marked complete
+
+      - id: reviews_exist
+        check: glob_min_count
+        pattern: tier4/reviews/*.md
+        min: 1
+        description: At least one review completed
+
+# Apply phase configuration
+apply:
+  requires:
+    - tasks
+  tracks: tier4/progress.yaml
+  instruction: |
+    Work through tasks, updating progress.yaml as you go.
+    Route completed work to Code Review Council.
+    Pause and escalate if blockers arise.
+
+# Archive configuration
+archive:
+  destination: archive/{date}-{initiative_id}/
+  update_specs: false

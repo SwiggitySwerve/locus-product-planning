@@ -1,0 +1,30 @@
+# INI-TEST-003: Tier 2 complete
+metadata:
+  id: INI-TEST-003
+  title: Tier 2 Complete Initiative
+  created_at: "2026-01-15T10:00:00Z"
+  updated_at: "2026-01-18T16:00:00Z"
+  mode: strict
+  allow_overlap: false
+
+stage: tier2_approved
+
+history:
+  - from: draft
+    to: tier1_active
+    timestamp: "2026-01-15T10:00:00Z"
+  - from: tier1_active
+    to: tier1_approved
+    timestamp: "2026-01-16T14:00:00Z"
+    gate: strategic
+  - from: tier1_approved
+    to: tier2_active
+    timestamp: "2026-01-16T14:30:00Z"
+  - from: tier2_active
+    to: tier2_approved
+    timestamp: "2026-01-18T16:00:00Z"
+    gate: product
+
+escalations: []
+
+blockers: []

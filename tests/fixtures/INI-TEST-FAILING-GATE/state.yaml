@@ -1,0 +1,19 @@
+# INI-TEST-FAILING-GATE: Strategic mandate has vision_aligned: false
+metadata:
+  id: INI-TEST-FAILING-GATE
+  title: Failing Gate Initiative
+  created_at: "2026-01-20T10:00:00Z"
+  updated_at: "2026-01-20T10:00:00Z"
+  mode: strict
+  allow_overlap: false
+
+stage: tier1_active
+
+history:
+  - from: draft
+    to: tier1_active
+    timestamp: "2026-01-20T10:00:00Z"
+
+escalations: []
+
+blockers: []

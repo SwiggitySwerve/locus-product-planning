@@ -1,0 +1,55 @@
+# Story Template
+# Parent: Epic
+# Created by: Product Manager (Tier 2)
+# Refined by: Architecture Council (Tier 3)
+
+id: ST-${ID}
+title: ${TITLE}
+
+# User story format
+user_story: |
+  As a ${PERSONA},
+  I want ${CAPABILITY},
+  So that ${BENEFIT}.
+
+# Parent references
+initiative_id: ${INITIATIVE_ID}
+epic_id: EP-${EPIC_ID}
+
+# Status
+status: draft  # draft | ready | in_progress | review | done | blocked
+
+# Prioritization
+moscow: must  # must | should | could | wont
+priority: P1  # P0 | P1 | P2 | P3 | P4
+
+# Estimation
+story_points: ${STORY_POINTS}
+
+# Acceptance Criteria (Given/When/Then format)
+acceptance_criteria:
+  - given: ${CONTEXT}
+    when: ${ACTION}
+    then: ${OUTCOME}
+  - given: 
+    when: 
+    then: 
+
+# Technical Notes (added by Tier 3 - Architecture)
+technical_notes: |
+  ${TECHNICAL_NOTES}
+
+# Required skills for implementation
+skills_required:
+  - ${SKILL_1}
+  - ${SKILL_2}
+
+# Dependencies on other stories
+dependencies: []
+
+# Labels
+labels: []
+
+# Metadata
+created_at: ${DATE}
+updated_at: ${DATE}

@@ -1,0 +1,9 @@
+id: ST-001
+title: Main Story
+user_story: As a user, I want the feature
+acceptance_criteria:
+  - Given setup, when action, then result
+story_points: 5
+moscow: must
+skills_required:
+  - frontend-developer

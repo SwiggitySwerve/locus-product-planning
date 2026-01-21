@@ -1,0 +1,7 @@
+all_complete: true
+tasks:
+  - id: TK-001
+    status: done
+    assignee: frontend-developer
+    pr: "#123"
+    completed_at: "2026-01-18T17:00:00Z"

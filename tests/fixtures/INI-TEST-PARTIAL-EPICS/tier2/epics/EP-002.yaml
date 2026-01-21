@@ -1,0 +1,4 @@
+# EP-002: Missing moscow field - this should cause all_have_field check to fail
+id: EP-002
+title: Epic without moscow
+# NOTE: moscow field intentionally omitted

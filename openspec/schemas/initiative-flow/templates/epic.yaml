@@ -1,0 +1,37 @@
+# Epic Template
+# Parent: Initiative
+# Created by: Product Manager (Tier 2)
+
+id: EP-${ID}
+title: ${TITLE}
+description: |
+  ${DESCRIPTION}
+
+# MoSCoW prioritization
+moscow: must  # must | should | could | wont
+
+# T-shirt size complexity
+complexity: M  # XS | S | M | L | XL
+
+# Business value
+business_value: |
+  ${BUSINESS_VALUE}
+
+# Target quarter
+target_quarter: Q1 2026
+
+# Acceptance criteria (high-level)
+acceptance_criteria:
+  - ${CRITERION_1}
+  - ${CRITERION_2}
+
+# Dependencies on other epics
+dependencies: []
+
+# Labels/tags
+labels:
+  - ${LABEL}
+
+# Metadata
+created_at: ${DATE}
+updated_at: ${DATE}

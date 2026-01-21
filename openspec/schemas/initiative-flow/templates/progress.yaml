@@ -1,0 +1,41 @@
+# Implementation Progress Tracking
+# Maintained by: Dev Coordinator (Tier 4)
+
+initiative_id: ${INITIATIVE_ID}
+updated_at: ${DATE}
+
+# Overall completion
+all_complete: false
+
+# Summary stats
+summary:
+  total_tasks: 0
+  completed: 0
+  in_progress: 0
+  blocked: 0
+  completion_pct: 0
+
+# Task status tracking
+tasks:
+  - id: TK-001
+    title: ${TASK_TITLE}
+    status: pending  # pending | in_progress | review | done | blocked
+    assignee: null  # Skill/agent that owns this
+    started_at: null
+    completed_at: null
+    pr: null  # PR number if applicable
+    notes: null
+
+# Blockers
+blockers: []
+  # - task_id: TK-001
+  #   description: Waiting for API decision
+  #   created_at: ${DATE}
+  #   resolved_at: null
+
+# Daily log (optional)
+daily_log: []
+  # - date: ${DATE}
+  #   completed: [TK-001]
+  #   started: [TK-002]
+  #   notes: "Made good progress"
