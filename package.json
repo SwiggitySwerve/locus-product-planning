@@ -1,7 +1,7 @@
 {
-  "name": "org-skills",
+  "name": "locus",
   "version": "1.0.0",
-  "description": "Organization-level AI skills framework with Initiative Flow system",
+  "description": "AI-powered project planning - your center point for building",
   "type": "module",
   "scripts": {
     "test": "vitest run",

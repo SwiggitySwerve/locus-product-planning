@@ -1,272 +1,83 @@
-# Organization Skills
+# Locus
 
-A comprehensive collection of AI skills and agents for organizational decision-making, from Executive Suite to Developer Specializations, with LLM Council orchestration for group decision-making.
+**Your center point for planning and building projects with AI.**
 
-## Architecture
+Locus guides you from idea to implementation through a simple 4-step process. No complicated commands to learn - just describe what you want to build.
+
+## Quick Start
 
 ```
-org-skills/
-├── skills/                           # Claude Skills (SKILL.md format)
-│   ├── 01-executive-suite/           # C-Level decision makers
-│   ├── 02-product-management/        # PM, Scrum, Roadmap
-│   ├── 03-engineering-leadership/    # Tech Lead, Staff, Principal
-│   └── 04-developer-specializations/ # All technical roles
-│       ├── core/                     # Frontend, Backend, Fullstack
-│       ├── languages/                # TypeScript, Python, Go, Rust
-│       ├── infrastructure/           # DevOps, SRE, Cloud, K8s
-│       ├── data-ai/                  # Data Eng, ML, LLM
-│       └── quality/                  # QA, Security, Performance
-├── agents/                           # Subagents (agent.md format)
-│   ├── executive/
-│   ├── product/
-│   ├── engineering/
-│   └── developers/
-├── councils/                         # LLM Council configurations
-│   ├── executive-council/            # Strategic decisions
-│   ├── product-council/              # Feature prioritization
-│   ├── architecture-council/         # Technical design review
-│   └── code-review-council/          # PR review
-└── lib/                              # Shared utilities and orchestration
+You: I want to build an AI trading simulator
+
+Locus: I'll help you plan and build this step by step.
+
+       📋 AI Trading Simulator
+       ━━━━━━━━━━━━━━━━━━━━━━━
+       → Step 1: Vision ◄
+         Step 2: Features
+         Step 3: Design
+         Step 4: Build
+
+       What problem does this solve?
 ```
 
-## Skill Tiers
+Say **"continue"** to move forward. That's it.
 
-### Tier 1: Executive Suite
-Strategic decision-making for C-level concerns.
+## How It Works
 
-| Skill | Purpose |
-|-------|---------|
-| `ceo-strategist` | Vision, strategy, stakeholder alignment |
-| `cto-architect` | Technical vision, platform decisions |
-| `cfo-analyst` | Financial modeling, resource allocation |
-| `coo-operations` | Process optimization, execution |
-| `cpo-product` | Product vision, market fit |
+```
+Step 1: Vision    → What are we building and why?
+Step 2: Features  → What will it do?
+Step 3: Design    → How will it work?
+Step 4: Build     → Let's make it
+```
 
-### Tier 2: Product & Project Management
-Product development and project execution.
+## Commands
 
-| Skill | Purpose |
-|-------|---------|
-| `product-manager` | Feature prioritization, user needs |
-| `project-manager` | Planning, timelines, dependencies |
-| `scrum-master` | Agile facilitation, sprint planning |
-| `program-manager` | Cross-team coordination |
-| `roadmap-strategist` | Long-term planning |
-
-### Tier 3: Engineering Leadership
-Technical leadership and team guidance.
-
-| Skill | Purpose |
-|-------|---------|
-| `tech-lead` | Technical direction, code quality |
-| `staff-engineer` | Cross-team architecture |
-| `principal-engineer` | Organization-wide patterns |
-| `engineering-manager` | Team health, delivery |
-| `architect-reviewer` | Design review, ADRs |
-
-### Tier 4: Developer Specializations
-Technical implementation across all domains.
-
-#### Core Development
-| Skill | Purpose |
-|-------|---------|
-| `frontend-developer` | React/Vue/Angular, component architecture |
-| `backend-developer` | APIs, databases, server-side logic |
-| `fullstack-developer` | End-to-end development, Next.js/Remix |
-| `mobile-developer` | iOS, Android, React Native, Flutter |
-
-#### Language Expertise
-| Skill | Purpose |
-|-------|---------|
-| `typescript-pro` | Type system mastery, generics, patterns |
-| `python-pro` | Modern Python, type hints, async |
-| `golang-pro` | Concurrency, interfaces, performance |
-| `rust-engineer` | Ownership, memory safety, systems |
-| `java-architect` | Spring, JVM, enterprise patterns |
-
-#### Infrastructure
-| Skill | Purpose |
-|-------|---------|
-| `devops-engineer` | CI/CD, IaC, automation |
-| `sre-engineer` | SLOs, incident management, reliability |
-| `platform-engineer` | Internal platforms, developer experience |
-| `cloud-architect` | AWS/GCP/Azure, multi-cloud |
-| `kubernetes-specialist` | K8s workloads, operators, security |
-| `security-engineer` | AppSec, infrastructure security |
-
-#### Data & AI
-| Skill | Purpose |
-|-------|---------|
-| `data-engineer` | Pipelines, warehousing, ETL |
-| `ml-engineer` | MLOps, model serving, feature stores |
-| `data-scientist` | Analysis, ML modeling, experimentation |
-| `llm-architect` | LLM systems, RAG, agents |
-
-#### Quality
-| Skill | Purpose |
-|-------|---------|
-| `qa-expert` | Test strategy, automation, exploratory |
-| `performance-engineer` | Load testing, profiling, optimization |
-| `accessibility-tester` | WCAG, assistive technology, inclusive |
-| `security-auditor` | Pen testing, vulnerability assessment |
-
-## LLM Council
-
-Multi-agent decision-making using peer review and synthesis.
-
-### How It Works
-
-1. **Dispatch**: Query sent to all relevant council members
-2. **Response**: Each member provides independent perspective
-3. **Anonymize**: Responses anonymized for unbiased evaluation
-4. **Peer Review**: Each member ranks all responses
-5. **Synthesis**: Chairman synthesizes best elements into final decision
-
-### Council Types
-
-| Council | Members | Use Case |
-|---------|---------|----------|
-| Executive | CEO, CTO, CFO, COO | Strategic decisions |
-| Product | PM, Tech Lead, Designer | Feature prioritization |
-| Architecture | Principal, Staff, Architect | Technical design |
-| Code Review | Multiple specialists | PR review |
+| What you want | What to say |
+|--------------|-------------|
+| Start a project | "I want to build..." or `/plan` |
+| Keep going | "continue" or "next" |
+| Check progress | "where are we?" |
 
 ## Installation
 
-### Claude Code
 ```bash
-# Add as plugin marketplace
-/plugin marketplace add SwiggitySwerve/org-skills
-
-# Or install specific skill sets
-/plugin install executive-suite@org-skills
-/plugin install product-management@org-skills
-```
-
-### Manual Installation
-```bash
-# Clone to your .claude directory
-git clone https://github.com/SwiggitySwerve/org-skills.git
-cp -r org-skills/skills/* ~/.claude/skills/
-cp -r org-skills/agents/* ~/.claude/agents/
-```
-
-## Usage
-
-### Individual Skills
-Skills activate automatically based on context, or invoke directly:
-```
-Use the cto-architect skill to evaluate this architecture decision...
-```
-
-### Council Decisions
-For complex decisions requiring multiple perspectives:
-```
-Convene the executive-council to evaluate this strategic pivot...
-```
-
-## Initiative Flow Framework
-
-A tiered workflow orchestration system that cascades work from strategic vision to implementation.
-
-### How It Works
-
-```
-Tier 1: Strategic Review    [Executive Council]
-    ↓ Strategic Gate
-Tier 2: Product Planning    [Product Council]
-    ↓ Product Gate
-Tier 3: Technical Design    [Architecture Council]
-    ↓ Design Gate
-Tier 4: Implementation      [Code Review Council]
-    ↓ Implementation Gate
-    ✓ Complete
-```
-
-### Key Concepts
-
-| Concept | Description |
-|---------|-------------|
-| **Artifacts** | Documents produced at each tier (mandate, PRD, ADRs, tasks) |
-| **Gates** | Machine-checkable criteria for tier advancement |
-| **Escalations** | Issues that need higher-tier resolution |
-| **State Machine** | Deterministic stage transitions |
-
-### Quick Start
-
-```bash
-# Install dependencies
+git clone https://github.com/SwiggitySwerve/locus.git
+cd locus
 npm install
+```
 
-# Run tests
-npm test
+## For Power Users
 
-# Check initiative status
+Under the hood, Locus uses a full organizational workflow framework with:
+
+- **38 AI Skills** across 4 tiers (Executive → Developer)
+- **4 Councils** for multi-agent decision making
+- **Machine-checkable gates** for quality control
+- **79 tests** ensuring reliability
+
+### CLI Access
+
+```bash
 npm run cli -- status INI-EXAMPLE-001
-
-# Check a gate
 npm run cli -- gate INI-EXAMPLE-001 product
-
-# View next action
-npm run cli -- next INI-EXAMPLE-001
 ```
 
-### CLI Commands
+### Framework Documentation
 
-| Command | Description |
-|---------|-------------|
-| `status <id>` | Full initiative status |
-| `tier <id> <tier>` | Tier-specific status |
-| `gate <id> <gate>` | Check gate criteria |
-| `stage <id>` | Current stage |
-| `next <id>` | Next action to take |
-| `transition <id> <from> <to>` | Apply stage transition |
+| Resource | Description |
+|----------|-------------|
+| [`openspec/AGENTS.md`](openspec/AGENTS.md) | AI agent instructions |
+| [`openspec/config.yaml`](openspec/config.yaml) | Framework configuration |
+| [`skills/`](skills/) | All 38 skills by tier |
+| [`councils/`](councils/) | Multi-agent councils |
 
-### Example Initiative
+## Why "Locus"?
 
-See `openspec/initiatives/INI-EXAMPLE-001/` for a complete example showing:
-- Strategic mandate (Tier 1 complete)
-- PRD and epics (Tier 2 in progress)
-- MoSCoW prioritization across 5 epics
+**Locus** (noun): A center point; a place where something is situated or occurs.
 
-### Programmatic Usage
-
-```typescript
-import {
-  loadSchema,
-  getInitiativeStatus,
-  checkGate,
-  canTransition,
-  applyTransition,
-} from './openspec/lib/index.js';
-
-// Load schema
-const schema = await loadSchema('initiative-flow');
-
-// Get initiative status
-const status = await getInitiativeStatus('INI-001', schema);
-console.log(status.currentStage);  // 'tier2_active'
-console.log(status.nextAction);     // { artifact: 'adrs', ... }
-
-// Check if gate passes
-const gate = await checkGate('INI-001', 'product', schema);
-if (gate.passed) {
-  // Transition to next stage
-  await applyTransition('INI-001', 'tier2_active', 'tier2_approved', schema);
-}
-```
-
-### Documentation
-
-- [`openspec/AGENTS.md`](openspec/AGENTS.md) - AI agent instructions
-- [`openspec/config.yaml`](openspec/config.yaml) - Project configuration
-- [`openspec/schemas/initiative-flow/schema.yaml`](openspec/schemas/initiative-flow/schema.yaml) - Full schema definition
-
-## Contributing
-
-1. Fork the repository
-2. Create skill/agent following the templates
-3. Submit PR with description
+Your projects need a center point - a place where vision, planning, and execution converge. That's Locus.
 
 ## License
 

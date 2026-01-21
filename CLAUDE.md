@@ -1,6 +1,6 @@
-# org-skills
+# Locus
 
-A simple way to plan and build projects.
+Your center point for planning and building projects with AI.
 
 ## Quick Start
 
