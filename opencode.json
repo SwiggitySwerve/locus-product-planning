@@ -1,0 +1,17 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "command": {
+    "locus": {
+      "template": "Load the 'locus' skill and help the user plan their project.\n\nIf they provided a project idea: $ARGUMENTS\nStart with Step 1: Vision.\n\nIf no idea provided, ask what they want to build.",
+      "description": "Start or resume a project (Vision → Features → Design → Build)"
+    },
+    "locus-status": {
+      "template": "Show the current Locus project status.\n\nLook in projects/ for the most recent project.\nRead .locus-state.yaml and display progress visually.\nKeep it simple - no file paths or technical jargon.",
+      "description": "Show current project progress"
+    },
+    "locus-list": {
+      "template": "List all Locus projects in the projects/ directory.\n\nFor each, show: name, current step, last updated.\nDisplay as a clean list. If none exist, suggest starting one with /locus.",
+      "description": "List all projects"
+    }
+  }
+}

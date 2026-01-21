@@ -1,22 +1,14 @@
 ---
-name: plan
-description: Help users plan and build projects through a simple step-by-step process
+name: locus
+description: Plan and build projects through a simple 4-step process (Vision → Features → Design → Build)
+license: MIT
 metadata:
   version: "2.0.0"
-  author: org-skills
-  tier: orchestration
+  author: locus
   category: workflow
-triggers:
-  - /plan
-  - plan this
-  - help me build
-  - I want to build
-  - I want to create
-  - let's make
-  - new project
 ---
 
-# Plan - Simple Project Planning
+# Locus - Simple Project Planning
 
 Help users go from idea to implementation through 4 simple steps. No jargon, no complexity - just guided progress.
 
@@ -37,7 +29,7 @@ Step 4: Build      → Make it happen
 
 When user says something like:
 - "I want to build an AI trading simulator"
-- "/plan a mobile app for..."
+- "/locus a mobile app for..."
 - "Help me create a..."
 
 Respond with:
@@ -178,7 +170,7 @@ Create files silently in: `projects/{project-slug}/`
 
 ```
 projects/ai-trading-simulator/
-├── plan.md           # Combined readable plan
+├── locus.md          # Combined readable plan
 ├── vision.md         # Step 1 output
 ├── features.md       # Step 2 output  
 ├── design.md         # Step 3 output
@@ -189,7 +181,7 @@ projects/ai-trading-simulator/
 
 Track state in a simple format:
 ```yaml
-# projects/{slug}/.plan-state.yaml
+# projects/{slug}/.locus-state.yaml
 project: AI Trading Simulator
 current_step: 2
 steps:
