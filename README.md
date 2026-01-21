@@ -67,7 +67,48 @@ Technical leadership and team guidance.
 ### Tier 4: Developer Specializations
 Technical implementation across all domains.
 
-See [skills/04-developer-specializations/](skills/04-developer-specializations/) for the full list.
+#### Core Development
+| Skill | Purpose |
+|-------|---------|
+| `frontend-developer` | React/Vue/Angular, component architecture |
+| `backend-developer` | APIs, databases, server-side logic |
+| `fullstack-developer` | End-to-end development, Next.js/Remix |
+| `mobile-developer` | iOS, Android, React Native, Flutter |
+
+#### Language Expertise
+| Skill | Purpose |
+|-------|---------|
+| `typescript-pro` | Type system mastery, generics, patterns |
+| `python-pro` | Modern Python, type hints, async |
+| `golang-pro` | Concurrency, interfaces, performance |
+| `rust-engineer` | Ownership, memory safety, systems |
+| `java-architect` | Spring, JVM, enterprise patterns |
+
+#### Infrastructure
+| Skill | Purpose |
+|-------|---------|
+| `devops-engineer` | CI/CD, IaC, automation |
+| `sre-engineer` | SLOs, incident management, reliability |
+| `platform-engineer` | Internal platforms, developer experience |
+| `cloud-architect` | AWS/GCP/Azure, multi-cloud |
+| `kubernetes-specialist` | K8s workloads, operators, security |
+| `security-engineer` | AppSec, infrastructure security |
+
+#### Data & AI
+| Skill | Purpose |
+|-------|---------|
+| `data-engineer` | Pipelines, warehousing, ETL |
+| `ml-engineer` | MLOps, model serving, feature stores |
+| `data-scientist` | Analysis, ML modeling, experimentation |
+| `llm-architect` | LLM systems, RAG, agents |
+
+#### Quality
+| Skill | Purpose |
+|-------|---------|
+| `qa-expert` | Test strategy, automation, exploratory |
+| `performance-engineer` | Load testing, profiling, optimization |
+| `accessibility-tester` | WCAG, assistive technology, inclusive |
+| `security-auditor` | Pen testing, vulnerability assessment |
 
 ## LLM Council
 
