@@ -34,13 +34,32 @@ Step 4: Build     → Let's make it
 
 ## Commands
 
-| What you want | What to say |
-|--------------|-------------|
-| Start a project | "I want to build..." or `/plan` |
-| Keep going | "continue" or "next" |
-| Check progress | "where are we?" |
+| Command | Description |
+|---------|-------------|
+| `/locus` | Start or resume a project |
+| `/locus-status` | Show current project progress |
+| `/locus-list` | List all projects |
+
+Or just describe what you want: "I want to build..."
 
 ## Installation
+
+### For OpenCode Users
+
+Copy the `.opencode/` folder to your project, or clone and reference:
+
+```bash
+git clone https://github.com/SwiggitySwerve/locus.git ~/.locus
+```
+
+Then in your project's `opencode.json`:
+```json
+{
+  "instructions": ["~/.locus/.opencode/skills/locus/SKILL.md"]
+}
+```
+
+### Full Framework (includes tests & CLI)
 
 ```bash
 git clone https://github.com/SwiggitySwerve/locus.git
@@ -52,9 +71,8 @@ npm install
 
 Under the hood, Locus uses a full organizational workflow framework with:
 
-- **38 AI Skills** across 4 tiers (Executive → Developer)
-- **4 Councils** for multi-agent decision making
-- **Machine-checkable gates** for quality control
+- **Machine-checkable gates** ensuring quality at each stage
+- **State machine** managing project transitions
 - **79 tests** ensuring reliability
 
 ### CLI Access
@@ -62,16 +80,23 @@ Under the hood, Locus uses a full organizational workflow framework with:
 ```bash
 npm run cli -- status INI-EXAMPLE-001
 npm run cli -- gate INI-EXAMPLE-001 product
+npm run cli -- next INI-EXAMPLE-001
 ```
 
-### Framework Documentation
+### Project Structure
 
-| Resource | Description |
-|----------|-------------|
-| [`openspec/AGENTS.md`](openspec/AGENTS.md) | AI agent instructions |
-| [`openspec/config.yaml`](openspec/config.yaml) | Framework configuration |
-| [`skills/`](skills/) | All 38 skills by tier |
-| [`councils/`](councils/) | Multi-agent councils |
+```
+.opencode/
+└── skills/
+    └── locus/
+        └── SKILL.md     # Main planning skill
+
+openspec/
+├── lib/                 # TypeScript framework
+└── initiatives/         # Project artifacts
+
+opencode.json            # Command definitions
+```
 
 ## Why "Locus"?
 
