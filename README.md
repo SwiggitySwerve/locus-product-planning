@@ -50,7 +50,7 @@ Add to your `opencode.json`:
 
 ```json
 {
-  "plugin": ["opencode-locus-product-planning"]
+  "plugin": ["locus-product-planning"]
 }
 ```
 
