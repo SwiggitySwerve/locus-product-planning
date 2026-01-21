@@ -1,80 +1,36 @@
-# OpenCode Plugin Configuration for org-skills
-# This enables the Initiative Flow Framework and organizational skills
+# OpenCode Configuration
+# Simple project planning with org-skills
 
 name: org-skills
-version: "1.0.0"
-description: Organization-level AI skills with Initiative Flow orchestration
+version: "2.0.0"
+description: Plan and build projects step by step
 
-# Skills to load
+# Primary skill - the simple planner
 skills:
-  # Orchestration (Tier 0)
-  - path: skills/00-orchestration/initiative-flow/SKILL.md
-    triggers: [/initiative, /ini, /flow]
-    priority: high
+  - path: skills/00-orchestration/plan/SKILL.md
+    triggers:
+      - /plan
+      - I want to build
+      - I want to create
+      - help me build
+      - let's make
+      - new project
 
-  # Executive Suite (Tier 1)
-  - path: skills/01-executive-suite/
-    triggers: [strategic, vision, executive, c-level]
-    
-  # Product Management (Tier 2)
-  - path: skills/02-product-management/
-    triggers: [product, prd, epic, roadmap, sprint]
-    
-  # Engineering Leadership (Tier 3)
-  - path: skills/03-engineering-leadership/
-    triggers: [architecture, adr, technical design, tech lead]
-    
-  # Developer Specializations (Tier 4)
-  - path: skills/04-developer-specializations/
-    triggers: [implement, code, develop, build]
-
-# Commands
+# Simple command
 commands:
-  - path: .opencode/commands/initiative.yaml
+  - path: .opencode/commands/plan.yaml
 
-# Councils (for multi-agent deliberation)
-councils:
-  - path: councils/executive-council/
-  - path: councils/product-council/
-  - path: councils/architecture-council/
-  - path: councils/code-review-council/
+# Where projects are stored
+projects_path: projects/
 
-# Agents
-agents:
-  - path: agents/
-
-# Initiative Flow settings
-initiative_flow:
-  # Where initiatives are stored
-  initiatives_path: openspec/initiatives
-  
-  # Schema to use
-  schema: initiative-flow
-  
-  # Gate mode: strict (manual approval) or auto (advance when gate passes)
-  gate_mode: strict
-  
-  # Auto-escalation settings
-  escalation:
-    scope_increase_percent: 20
-    timeline_slip_days: 7
-    blocker_unresolved_hours: 48
-
-# Context to inject into conversations when in this project
+# Context shown to users
 context: |
-  This project uses the Initiative Flow Framework for orchestrating work.
+  Plan and build projects in 4 simple steps:
   
-  Available commands:
-  - /initiative new <title> - Start a new initiative
-  - /initiative status - Check current status
-  - /initiative next - Work on the next action
-  - /initiative gate <gate> - Check gate criteria
-  - /initiative advance - Move to next tier
+  1. Vision → What and why?
+  2. Features → What will it do?
+  3. Design → How will it work?
+  4. Build → Make it happen
   
-  Tiers:
-  1. Strategic Review (Executive Council)
-  2. Product Planning (Product Council)
-  3. Technical Design (Architecture Council)
-  4. Implementation (Code Review Council + Specialists)
-  
-  Each tier produces artifacts that must pass machine-checkable gates.
+  Just describe what you want to build, or use /plan.
+  Say "continue" to move forward.
