@@ -1,0 +1,29 @@
+id: EP-001
+title: Navigation Redesign
+moscow: must
+status: defined
+description: |
+  Complete overhaul of app navigation to improve discoverability and reduce
+  time-to-task. Implement bottom navigation pattern with contextual actions.
+
+acceptance_criteria:
+  - Bottom navigation with 5 primary destinations
+  - Gesture-based navigation (swipe between sections)
+  - Search accessible from any screen
+  - Breadcrumb navigation for deep hierarchies
+  - Back button behavior consistent across all flows
+
+estimated_complexity: L
+estimated_weeks: 4
+
+dependencies:
+  - Brand guidelines (external)
+  - User research on navigation patterns
+
+risks:
+  - Users may resist navigation changes
+  - Deep linking may break
+
+success_metrics:
+  - Reduce average taps to reach any feature by 30%
+  - Navigation-related support tickets reduced by 50%

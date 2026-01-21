@@ -165,6 +165,103 @@ For complex decisions requiring multiple perspectives:
 Convene the executive-council to evaluate this strategic pivot...
 ```
 
+## Initiative Flow Framework
+
+A tiered workflow orchestration system that cascades work from strategic vision to implementation.
+
+### How It Works
+
+```
+Tier 1: Strategic Review    [Executive Council]
+    ↓ Strategic Gate
+Tier 2: Product Planning    [Product Council]
+    ↓ Product Gate
+Tier 3: Technical Design    [Architecture Council]
+    ↓ Design Gate
+Tier 4: Implementation      [Code Review Council]
+    ↓ Implementation Gate
+    ✓ Complete
+```
+
+### Key Concepts
+
+| Concept | Description |
+|---------|-------------|
+| **Artifacts** | Documents produced at each tier (mandate, PRD, ADRs, tasks) |
+| **Gates** | Machine-checkable criteria for tier advancement |
+| **Escalations** | Issues that need higher-tier resolution |
+| **State Machine** | Deterministic stage transitions |
+
+### Quick Start
+
+```bash
+# Install dependencies
+npm install
+
+# Run tests
+npm test
+
+# Check initiative status
+npm run cli -- status INI-EXAMPLE-001
+
+# Check a gate
+npm run cli -- gate INI-EXAMPLE-001 product
+
+# View next action
+npm run cli -- next INI-EXAMPLE-001
+```
+
+### CLI Commands
+
+| Command | Description |
+|---------|-------------|
+| `status <id>` | Full initiative status |
+| `tier <id> <tier>` | Tier-specific status |
+| `gate <id> <gate>` | Check gate criteria |
+| `stage <id>` | Current stage |
+| `next <id>` | Next action to take |
+| `transition <id> <from> <to>` | Apply stage transition |
+
+### Example Initiative
+
+See `openspec/initiatives/INI-EXAMPLE-001/` for a complete example showing:
+- Strategic mandate (Tier 1 complete)
+- PRD and epics (Tier 2 in progress)
+- MoSCoW prioritization across 5 epics
+
+### Programmatic Usage
+
+```typescript
+import {
+  loadSchema,
+  getInitiativeStatus,
+  checkGate,
+  canTransition,
+  applyTransition,
+} from './openspec/lib/index.js';
+
+// Load schema
+const schema = await loadSchema('initiative-flow');
+
+// Get initiative status
+const status = await getInitiativeStatus('INI-001', schema);
+console.log(status.currentStage);  // 'tier2_active'
+console.log(status.nextAction);     // { artifact: 'adrs', ... }
+
+// Check if gate passes
+const gate = await checkGate('INI-001', 'product', schema);
+if (gate.passed) {
+  // Transition to next stage
+  await applyTransition('INI-001', 'tier2_active', 'tier2_approved', schema);
+}
+```
+
+### Documentation
+
+- [`openspec/AGENTS.md`](openspec/AGENTS.md) - AI agent instructions
+- [`openspec/config.yaml`](openspec/config.yaml) - Project configuration
+- [`openspec/schemas/initiative-flow/schema.yaml`](openspec/schemas/initiative-flow/schema.yaml) - Full schema definition
+
 ## Contributing
 
 1. Fork the repository

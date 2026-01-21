@@ -1,0 +1,30 @@
+id: EP-002
+title: Onboarding Flow Redesign
+moscow: must
+status: defined
+description: |
+  Redesign first-time user experience to reduce drop-off and accelerate
+  time-to-value. Implement progressive onboarding with skip options.
+
+acceptance_criteria:
+  - Maximum 3 screens before app access
+  - Skip option on every screen
+  - Value demonstration within first 60 seconds
+  - Account creation deferred until necessary
+  - Progress indicator showing completion
+  - Personalization questions (optional)
+
+estimated_complexity: M
+estimated_weeks: 2
+
+dependencies:
+  - EP-001 (navigation must be finalized first)
+  - User research on drop-off points
+
+risks:
+  - Too short may not educate users
+  - Too long will increase drop-off
+
+success_metrics:
+  - Onboarding completion rate > 75%
+  - Time to first value action < 2 minutes

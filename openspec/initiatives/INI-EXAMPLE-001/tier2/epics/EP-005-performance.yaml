@@ -1,0 +1,30 @@
+id: EP-005
+title: Performance Optimization
+moscow: should
+status: defined
+description: |
+  Optimize app performance for older devices and slower networks.
+  Target 3-year-old devices as baseline.
+
+acceptance_criteria:
+  - First meaningful paint < 2s on baseline device
+  - Time to interactive < 3s
+  - App size < 50MB
+  - Offline mode for core features
+  - Memory usage < 150MB peak
+  - 60fps scrolling on all lists
+
+estimated_complexity: L
+estimated_weeks: 3
+
+dependencies:
+  - EP-001, EP-003 (optimize final implementations)
+
+risks:
+  - May conflict with visual richness goals
+  - Some features may need to be simplified
+
+success_metrics:
+  - Performance score > 90 on Lighthouse
+  - Crash rate < 0.1%
+  - ANR rate < 0.05%

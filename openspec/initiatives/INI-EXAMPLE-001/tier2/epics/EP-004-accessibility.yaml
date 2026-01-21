@@ -1,0 +1,30 @@
+id: EP-004
+title: Accessibility Improvements
+moscow: must
+status: defined
+description: |
+  Ensure WCAG 2.1 AA compliance across the entire app. Address current
+  accessibility gaps affecting 15% of users.
+
+acceptance_criteria:
+  - Full screen reader support (VoiceOver/TalkBack)
+  - Minimum touch target size 44x44pt
+  - Color contrast ratio >= 4.5:1
+  - Keyboard navigation support
+  - Reduced motion option
+  - Dynamic text size support
+  - Focus indicators on all interactive elements
+
+estimated_complexity: M
+estimated_weeks: 2
+
+dependencies:
+  - EP-003 (visual refresh may affect contrast)
+
+risks:
+  - May require significant component refactoring
+  - Testing with assistive technology users needed
+
+success_metrics:
+  - WCAG 2.1 AA audit score > 95%
+  - Accessibility-related complaints reduced by 80%

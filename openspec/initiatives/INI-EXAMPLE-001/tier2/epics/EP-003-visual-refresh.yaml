@@ -1,0 +1,30 @@
+id: EP-003
+title: Visual Design Refresh
+moscow: should
+status: defined
+description: |
+  Update visual design to align with 2024 brand refresh. Implement new
+  design system with consistent components and theming support.
+
+acceptance_criteria:
+  - New color palette from brand guidelines
+  - Updated typography (system fonts for performance)
+  - Consistent spacing using 8pt grid
+  - Dark mode support
+  - Smooth transitions and micro-animations
+  - Component library for design consistency
+
+estimated_complexity: M
+estimated_weeks: 3
+
+dependencies:
+  - Brand guidelines finalization
+  - EP-001 (apply to new navigation)
+
+risks:
+  - Brand guidelines may change mid-implementation
+  - Animation performance on older devices
+
+success_metrics:
+  - Brand consistency score > 95%
+  - User satisfaction with visual design > 4.0/5.0

@@ -6,7 +6,7 @@
 import { readFile } from 'fs/promises';
 import { join } from 'path';
 import { parse as parseYaml } from 'yaml';
-import type { Schema, ArtifactDefinition, GateDefinition, TierDefinition, GateId } from './types.js';
+import type { Schema, ArtifactDefinition, GateDefinition, TierDefinition, GateId, TierId } from './types.js';
 
 // Base path for openspec directory
 const OPENSPEC_BASE = join(process.cwd(), 'openspec');
@@ -67,7 +67,7 @@ function validateSchema(raw: unknown, schemaName: string): Schema {
     }
     return {
       id: artifact.id as string,
-      tier: artifact.tier as string,
+      tier: artifact.tier as TierId,
       generates: artifact.generates as string,
       template: artifact.template as string || '',
       description: artifact.description as string || '',
@@ -86,7 +86,7 @@ function validateSchema(raw: unknown, schemaName: string): Schema {
       id: gateId as GateId,
       description: g.description as string || '',
       from_artifacts: Array.isArray(g.from_artifacts) ? g.from_artifacts as string[] : [],
-      to_tier: g.to_tier as string | undefined,
+      to_tier: g.to_tier as TierId | undefined,
       terminal: g.terminal as boolean | undefined,
       criteria: Array.isArray(g.criteria) ? g.criteria : [],
     } as GateDefinition;
