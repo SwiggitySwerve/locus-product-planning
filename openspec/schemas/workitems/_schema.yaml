@@ -1,0 +1,239 @@
+schema_version: "1.0"
+
+levels:
+  epic:
+    description: Large feature or initiative
+    can_contain: [story]
+    mappings:
+      jira: Epic
+      azure_devops: Epic
+      linear: Initiative
+      github_projects: Milestone
+      asana: Project
+      notion: Database Item
+      monday: Group
+      trello: List
+
+  story:
+    description: User-facing capability
+    can_contain: [task]
+    mappings:
+      jira: Story
+      azure_devops: User Story
+      linear: Issue
+      github_projects: Issue
+      asana: Task
+      notion: Page
+      monday: Item
+      trello: Card
+
+  task:
+    description: Atomic unit of work
+    can_contain: []
+    mappings:
+      jira: Sub-task
+      azure_devops: Task
+      linear: Sub-issue
+      github_projects: Task list item
+      asana: Subtask
+      notion: Sub-item
+      monday: Sub-item
+      trello: Checklist item
+
+statuses:
+  backlog:
+    description: Not started, not yet prioritized
+    mappings:
+      jira: Backlog
+      azure_devops: New
+      linear: Backlog
+      github_projects: No Status
+      asana: Not Started
+
+  todo:
+    description: Ready to be worked on
+    mappings:
+      jira: To Do
+      azure_devops: Approved
+      linear: Todo
+      github_projects: Todo
+      asana: Not Started
+
+  in_progress:
+    description: Currently being worked on
+    mappings:
+      jira: In Progress
+      azure_devops: Committed
+      linear: In Progress
+      github_projects: In Progress
+      asana: In Progress
+
+  in_review:
+    description: Work complete, under review
+    mappings:
+      jira: In Review
+      azure_devops: In Review
+      linear: In Review
+      github_projects: In Review
+      asana: In Review
+
+  done:
+    description: Complete
+    mappings:
+      jira: Done
+      azure_devops: Done
+      linear: Done
+      github_projects: Done
+      asana: Complete
+
+  cancelled:
+    description: Will not be done
+    mappings:
+      jira: Won't Do
+      azure_devops: Removed
+      linear: Canceled
+      github_projects: Closed
+      asana: Cancelled
+
+priorities:
+  urgent:
+    description: Critical, drop everything
+    mappings:
+      jira: Highest
+      azure_devops: 1
+      linear: Urgent
+
+  high:
+    description: Important, do soon
+    mappings:
+      jira: High
+      azure_devops: 2
+      linear: High
+
+  medium:
+    description: Normal priority
+    mappings:
+      jira: Medium
+      azure_devops: 3
+      linear: Medium
+
+  low:
+    description: Nice to have
+    mappings:
+      jira: Low
+      azure_devops: 4
+      linear: Low
+
+  none:
+    description: Not prioritized
+    mappings:
+      jira: Lowest
+      azure_devops: 5
+      linear: No Priority
+
+estimate_units:
+  points:
+    description: Story points (Fibonacci recommended)
+    common_values: [1, 2, 3, 5, 8, 13, 21]
+  hours:
+    description: Hours of work
+  days:
+    description: Days of work
+  t-shirt:
+    description: T-shirt sizing
+    values: [XS, S, M, L, XL]
+    point_mapping:
+      XS: 1
+      S: 2
+      M: 3
+      L: 5
+      XL: 8
+
+fields:
+  required:
+    - name: id
+      type: string
+      pattern: "^\\d+(\\.\\d+)*-.+$"
+      description: Hierarchical ID with slug
+    - name: title
+      type: string
+      max_length: 200
+    - name: description
+      type: string
+      format: markdown
+    - name: status
+      type: enum
+      values: [backlog, todo, in_progress, in_review, done, cancelled]
+    - name: created_at
+      type: datetime
+      format: ISO8601
+
+  common:
+    - name: updated_at
+      type: datetime
+    - name: priority
+      type: enum
+      values: [urgent, high, medium, low, none]
+      default: medium
+    - name: assignee
+      type: string
+    - name: labels
+      type: array
+      items: string
+    - name: parent
+      type: string
+    - name: children
+      type: array
+      items: string
+    - name: estimate
+      type: object
+      properties:
+        value: [number, string]
+        unit: [points, hours, days, t-shirt]
+
+  optional:
+    - name: due_date
+      type: date
+    - name: acceptance_criteria
+      type: array
+    - name: blocked_by
+      type: array
+      items: string
+    - name: blocks
+      type: array
+      items: string
+    - name: user_story
+      type: object
+      level: story
+    - name: implementation_notes
+      type: string
+      level: task
+    - name: affected_files
+      type: array
+      level: task
+
+validation:
+  - rule: required_fields_present
+    description: All required fields must be present
+  - rule: valid_status_value
+    description: Status must be a defined value
+  - rule: valid_priority_value
+    description: Priority must be a defined value
+  - rule: parent_exists
+    description: Parent reference must exist
+  - rule: children_exist
+    description: All children must exist
+  - rule: bidirectional_relationships
+    description: Parent-child must be consistent
+  - rule: no_circular_dependencies
+    description: No cycles in blocked_by/blocks
+  - rule: level_hierarchy
+    description: Epics -> stories -> tasks only
+  - rule: unique_ids
+    description: All IDs unique within project
+  - rule: valid_id_format
+    description: IDs match hierarchical pattern
+  - rule: tasks_are_leaves
+    description: Tasks cannot have children
+  - rule: epics_have_no_parent
+    description: Epics cannot have parent

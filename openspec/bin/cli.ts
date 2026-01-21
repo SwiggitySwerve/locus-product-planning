@@ -10,6 +10,7 @@ import { loadSchema } from '../lib/schema.js';
 import { getInitiativeStatus, getTierStatus, loadInitiativeState } from '../lib/status.js';
 import { checkGate, canPassGate } from '../lib/gates.js';
 import { canTransition, applyTransition, getCurrentStage } from '../lib/state-machine.js';
+import { workitemsCLI } from '../lib/workitems/cli.js';
 import type { TierId, GateId, StageStatus } from '../lib/types.js';
 
 const INITIATIVES_PATH = join(process.cwd(), 'openspec', 'initiatives');
@@ -40,6 +41,7 @@ ${colors.cyan}Commands:${colors.reset}
   stage <initiative-id>      Show current stage
   next <initiative-id>       Show next action
   transition <initiative-id> <from> <to>  Apply stage transition
+  workitems <subcommand>     Manage universal work items (init, validate, help)
 
 ${colors.cyan}Options:${colors.reset}
   --help, -h                 Show this help message
@@ -309,6 +311,10 @@ async function main() {
           throw new Error('Usage: transition <initiative-id> <from> <to>');
         }
         await commandTransition(args[0], args[1], args[2], asJson);
+        break;
+
+      case 'workitems':
+        await workitemsCLI(args);
         break;
 
       default:
