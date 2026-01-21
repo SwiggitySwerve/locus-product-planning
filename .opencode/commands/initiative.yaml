@@ -1,0 +1,204 @@
+# Initiative Flow Commands
+# These commands orchestrate work through the 4-tier Initiative Flow Framework
+
+name: initiative
+aliases: [ini, flow]
+description: Orchestrate work through Strategic → Product → Architecture → Implementation tiers
+
+subcommands:
+  new:
+    description: Create a new initiative and begin strategic review
+    usage: /initiative new <title>
+    args:
+      - name: title
+        required: true
+        description: Title for the new initiative
+    prompt: |
+      Create a new initiative titled "{{title}}".
+
+      Follow the initiative-flow skill to:
+      1. Generate initiative ID: INI-{YYYYMMDD}-{sequence}
+      2. Create directory: openspec/initiatives/{id}/
+      3. Initialize state.yaml with stage: draft
+      4. Transition to tier1_active
+      5. Begin Tier 1 (Strategic Review) by creating the strategic mandate
+
+      Use the Executive Council skills (ceo-strategist, cto-architect, cfo-analyst) to:
+      - Establish vision alignment
+      - Identify executive sponsor
+      - Define success metrics
+      - Assess risks and mitigations
+
+      Create tier1/strategic-mandate.md with proper frontmatter:
+      ```yaml
+      ---
+      vision_aligned: true
+      sponsor: <identified sponsor>
+      success_metrics:
+        - <metric 1>
+        - <metric 2>
+      ---
+      ```
+
+      After creation, check the strategic gate and report status.
+
+  status:
+    description: Show current initiative status
+    usage: /initiative status [id]
+    args:
+      - name: id
+        required: false
+        description: Initiative ID (uses most recent if omitted)
+    prompt: |
+      Show the status of initiative {{id | default: "most recent"}}.
+
+      Run: `npm run cli -- status {{id}} --json` in the org-skills directory
+      
+      Parse the output and present:
+      1. Initiative title and current stage
+      2. Completed tiers (with checkmarks)
+      3. Artifact status table (blocked/ready/done)
+      4. Gate status (passed/pending/blocked)
+      5. Any active escalations or blockers
+      6. Recommended next action
+
+      Format the output for easy reading with colors/emoji indicators.
+
+  next:
+    description: Work on the next action for the initiative
+    usage: /initiative next [id]
+    args:
+      - name: id
+        required: false
+        description: Initiative ID
+    prompt: |
+      Continue work on initiative {{id | default: "most recent"}}.
+
+      1. Get current status: `npm run cli -- status {{id}} --json`
+      2. Identify the next READY artifact from the response
+      3. Load the appropriate skill for the current tier:
+         - Tier 1: executive-council skills
+         - Tier 2: product-council skills  
+         - Tier 3: architecture-council skills
+         - Tier 4: developer specialization skills
+      4. Create the required artifact(s)
+      5. Update initiative state
+      6. Check if the tier's gate now passes
+      7. Report completion and next steps
+
+      IMPORTANT: Follow the artifact templates in openspec/schemas/initiative-flow/templates/
+
+  gate:
+    description: Check or attempt to pass a gate
+    usage: /initiative gate [id] <gate-name>
+    args:
+      - name: id
+        required: false
+        description: Initiative ID
+      - name: gate
+        required: true
+        description: Gate to check (strategic, product, design, implementation)
+    prompt: |
+      Check the {{gate}} gate for initiative {{id | default: "most recent"}}.
+
+      Run: `npm run cli -- gate {{id}} {{gate}} --json`
+
+      Present results:
+      1. Overall pass/fail status
+      2. Each criterion with pass/fail indicator
+      3. For failures, explain what's missing
+      4. If all passed, offer to advance to next tier
+
+  advance:
+    description: Advance to the next tier after gate passage
+    usage: /initiative advance [id]
+    args:
+      - name: id
+        required: false
+        description: Initiative ID
+    prompt: |
+      Attempt to advance initiative {{id | default: "most recent"}} to the next tier.
+
+      1. Get current stage from status
+      2. Determine the required gate for advancement
+      3. Check the gate: `npm run cli -- gate {{id}} <gate> --json`
+      4. If gate passes:
+         - Apply transition to next stage
+         - Update state.yaml
+         - Report new stage and next actions
+      5. If gate fails:
+         - Report failing criteria
+         - Suggest remediation steps
+
+  list:
+    description: List all active initiatives
+    usage: /initiative list
+    prompt: |
+      List all initiatives in openspec/initiatives/.
+
+      For each initiative:
+      1. Read state.yaml
+      2. Extract: id, title, stage, last updated
+      3. Show completion percentage
+
+      Format as a table:
+      | ID | Title | Stage | Progress | Updated |
+      |----|-------|-------|----------|---------|
+
+  tier:
+    description: Show detailed tier status
+    usage: /initiative tier [id] <tier>
+    args:
+      - name: id
+        required: false
+        description: Initiative ID
+      - name: tier
+        required: true
+        description: Tier to inspect (tier1, tier2, tier3, tier4)
+    prompt: |
+      Show detailed status of {{tier}} for initiative {{id | default: "most recent"}}.
+
+      Run: `npm run cli -- tier {{id}} {{tier}} --json`
+
+      Present:
+      1. Tier name and responsible council
+      2. Completion percentage
+      3. Each artifact with status
+      4. Blocking dependencies
+      5. Required skills for remaining work
+
+  escalate:
+    description: Create an escalation for a blocker
+    usage: /initiative escalate [id] <severity> <reason>
+    args:
+      - name: id
+        required: false
+        description: Initiative ID
+      - name: severity
+        required: true
+        description: Severity level (critical, high, medium, low)
+      - name: reason
+        required: true
+        description: Reason for escalation
+    prompt: |
+      Create an escalation for initiative {{id | default: "most recent"}}.
+
+      Severity: {{severity}}
+      Reason: {{reason}}
+
+      1. Load current state.yaml
+      2. Add escalation entry:
+         ```yaml
+         - id: ESC-{timestamp}
+           from_tier: <current tier>
+           to_tier: <appropriate tier based on issue>
+           severity: {{severity}}
+           reason: "{{reason}}"
+           created_at: <now>
+         ```
+      3. Save state.yaml
+      4. Report escalation created
+      5. Note: This will block gate passage until resolved
+
+# Default command (when just /initiative is used)
+default: status
