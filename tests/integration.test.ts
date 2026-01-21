@@ -237,6 +237,16 @@ status: accepted
         })
       );
 
+      await writeFile(
+        join(initPath, 'tier3', 'test-strategy.md'),
+        `---
+status: draft
+---
+# Test Strategy
+Testing strategy for this initiative.
+`
+      );
+
       // Check design gate
       const designGate = await checkGate(INITIATIVE_ID, 'design', schema, TEST_DIR);
       expect(designGate.passed).toBe(true);
@@ -295,6 +305,10 @@ success_metrics: [KPI1]
       await writeFile(
         join(initPath, 'tier3', 'tasks', 'TK-001.yaml'),
         stringifyYaml({ id: 'TK-001', skills_required: ['dev'] })
+      );
+      await writeFile(
+        join(initPath, 'tier3', 'test-strategy.md'),
+        '---\nstatus: draft\n---\n# Test Strategy'
       );
 
       // Tier 4 artifacts

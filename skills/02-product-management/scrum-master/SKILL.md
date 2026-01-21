@@ -111,6 +111,53 @@ What should we try? → Start doing
 | **Purpose** | Does work feel meaningful? |
 | **Safety** | Can people speak up without fear? |
 
+## Capacity Validation
+
+### Sprint Capacity Calculator
+
+```
+Available Hours per Person = Sprint Days × Hours per Day × Focus Factor
+
+Focus Factor:
+- Senior: 0.7 (meetings, mentoring, reviews)
+- Mid-level: 0.8 (some meetings, reviews)
+- Junior: 0.85 (mostly coding, some pairing)
+
+Example (2-week sprint):
+- 10 working days × 8 hours × 0.75 average = 60 available hours per person
+- 8-person team = 480 available hours
+- Add 20% buffer for unknowns = 384 committable hours
+```
+
+### Capacity Check Checklist
+
+Before committing to a sprint:
+- [ ] Sum all task estimates
+- [ ] Compare against team capacity (with focus factor)
+- [ ] Verify no single person is > 80% allocated
+- [ ] Account for planned PTO/holidays
+- [ ] Reserve time for ceremonies (planning, retro, reviews)
+- [ ] Include code review time (typically 10-15% of dev time)
+
+### Warning Signs
+
+| Signal | Action |
+|--------|--------|
+| Sprint hours > 80% of capacity | Reduce scope |
+| Single person > 90% allocated | Redistribute work |
+| No buffer time | Cut lowest priority items |
+| Multiple "stretch goals" | These will be cut |
+
+### Velocity Tracking
+
+| Sprint | Committed | Completed | Velocity | Notes |
+|--------|-----------|-----------|----------|-------|
+| N-2 | | | | |
+| N-1 | | | | |
+| N | | | | |
+
+Use 3-sprint rolling average for planning.
+
 ## Communication Style
 
 ### To Team

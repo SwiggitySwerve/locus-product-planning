@@ -107,6 +107,7 @@ Cover:
 - Key technical decisions
 - Architecture overview
 - Main components
+- Testing strategy (how we'll verify it works)
 
 **Output**: Technical approach (create behind the scenes)
 
@@ -117,6 +118,7 @@ Do:
 - Break into tasks
 - Start implementing
 - Track progress
+- Verify operational readiness
 
 **Output**: Working code/product
 
@@ -175,6 +177,59 @@ projects/ai-trading-simulator/
 ├── features.md       # Step 2 output  
 ├── design.md         # Step 3 output
 └── tasks/            # Step 4 breakdown
+```
+
+### Gate Status Visualization
+
+When completing each step, show gate status to users:
+
+```
+✅ Step 1: Vision — Gate Passed
+   ✅ Vision statement defined
+   ✅ User personas identified (4 found)
+   ✅ Success metrics defined (5 metrics)
+   ✅ Competitive positioning documented
+
+📋 Step 2: Features — In Progress
+   ✅ Feature list created
+   ⏳ MoSCoW prioritization pending
+   ⏳ User stories pending
+```
+
+### Gate Criteria by Step
+
+| Step | Gate | Key Criteria |
+|------|------|--------------|
+| Vision | Strategic | Vision aligned, sponsor identified, metrics defined |
+| Features | Product | PRD complete, epics defined, MoSCoW applied |
+| Design | Design | ADRs created, stories refined, tasks broken down, **test strategy defined** |
+| Build | Implementation | All tasks done, reviews complete, **ops readiness verified** |
+
+### Showing Progress
+
+When moving between steps, always show:
+1. What was completed (with checkmarks)
+2. What's being validated (gate criteria)
+3. What's next
+
+Example transition message:
+```
+✓ Step 2: Features — complete
+
+Gate check:
+✅ PRD document created
+✅ 5 epics defined with MoSCoW priority
+✅ User stories written
+✅ Scope boundaries clear
+
+📋 AI Trading Simulator
+━━━━━━━━━━━━━━━━━━━━━━━
+✓ Step 1: Vision
+✓ Step 2: Features
+→ Step 3: Design      ◄ you are here
+  Step 4: Build
+
+Now let's design how to build this...
 ```
 
 ### State Tracking

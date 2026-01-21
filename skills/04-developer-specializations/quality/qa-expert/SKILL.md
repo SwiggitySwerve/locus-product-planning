@@ -338,6 +338,55 @@ test('sometimes flaky test @flaky', async ({ page }) => {
 });
 ```
 
+## Test Data Strategy
+
+### Data Categories
+
+| Category | Strategy | Tools | Considerations |
+|----------|----------|-------|----------------|
+| **Unit Tests** | Factories | Faker.js, Factory Bot | Fast, deterministic |
+| **Integration** | Fixtures + Factories | Seed scripts | Referential integrity |
+| **E2E** | Seeded database | DB snapshots | Reset between runs |
+| **Performance** | Generated at scale | Custom scripts | Realistic volumes |
+| **Compliance** | Anonymized/synthetic | Data masking | NO real PII/PHI |
+
+### Test Data Requirements Document
+
+Every test strategy should specify:
+
+#### Volume Requirements
+| Entity | Unit Tests | Integration | E2E | Load Test |
+|--------|------------|-------------|-----|-----------|
+| Users | 10 | 100 | 1,000 | 100,000 |
+| [Entity] | [appropriate counts per test type] |
+
+#### Data Generation Checklist
+- [ ] Factories defined for all entities
+- [ ] Seed scripts for integration environment
+- [ ] Anonymization rules for production data copies
+- [ ] Data refresh schedule documented
+
+#### Sensitive Data Handling
+- [ ] NO production PII/PHI in any test environment
+- [ ] Synthetic data generators for sensitive fields
+- [ ] Data masking rules documented
+- [ ] Compliance officer sign-off (if regulated industry)
+
+#### Edge Cases to Generate
+- [ ] Boundary values (min, max, zero, negative)
+- [ ] Unicode/i18n characters
+- [ ] Large payloads
+- [ ] Invalid/malformed data
+
+### Data Generation Tools by Domain
+
+| Domain | Recommended Tools |
+|--------|-------------------|
+| General | Faker.js, Chance.js, Mockaroo |
+| Healthcare | Synthea, FHIR test data generators |
+| Financial | ISO 20022 test generators |
+| E-commerce | Custom product/order generators |
+
 ## Anti-Patterns to Avoid
 
 | Anti-Pattern | Better Approach |

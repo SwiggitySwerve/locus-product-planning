@@ -38,6 +38,31 @@ When analyzing project decisions:
 - What's on the critical path?
 - Is there buffer?
 
+## Plan Validation Checklist
+
+Before finalizing any project plan, verify:
+
+### Capacity
+- [ ] Total hours vs team capacity calculated
+- [ ] No person over 80% allocated
+- [ ] Buffer included (minimum 20%)
+
+### Dependencies
+- [ ] External dependencies identified
+- [ ] Cross-team coordination planned
+- [ ] Critical path identified
+
+### Risks
+- [ ] Top 5 risks documented
+- [ ] Mitigation strategies defined
+- [ ] Risk checkpoints scheduled
+
+### Completeness
+- [ ] Testing time included
+- [ ] Code review time included
+- [ ] Documentation time included
+- [ ] Deployment time included
+
 ## Communication Protocol
 
 ### When Planning

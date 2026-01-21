@@ -251,6 +251,56 @@ infrastructure:
    - Chaos experiments
 ```
 
+## Operational Readiness Checklist
+
+### Pre-Launch Requirements
+
+Every new service/feature MUST have:
+
+#### Observability
+- [ ] Application metrics (requests, errors, latency)
+- [ ] Business metrics (key user actions)
+- [ ] Structured logging with correlation IDs
+- [ ] Distributed tracing integration
+
+#### Alerting
+- [ ] SLO-based alerts defined
+- [ ] Alert routing to correct team
+- [ ] Escalation paths documented
+- [ ] PagerDuty/on-call integration
+
+#### Documentation
+- [ ] Runbook for common issues
+- [ ] Architecture diagram
+- [ ] Dependency map
+- [ ] Rollback procedure
+
+#### Testing
+- [ ] Load test passed
+- [ ] Chaos/failure testing completed
+- [ ] Disaster recovery tested
+
+### Operational Readiness Review
+
+Before marking a feature "done", verify:
+
+| Category | Question | Required? |
+|----------|----------|-----------|
+| Monitoring | Can we see if it's working? | Yes |
+| Alerting | Will we know if it breaks? | Yes |
+| Runbook | Can on-call fix common issues? | Yes |
+| Rollback | Can we undo this change quickly? | Yes |
+| Scaling | Do we know the limits? | For new services |
+| Cost | Do we know the infrastructure cost? | For new services |
+
+### Launch Readiness Levels
+
+| Level | Requirements | Use For |
+|-------|--------------|---------|
+| **L1 - Experimental** | Basic monitoring only | Internal tools, prototypes |
+| **L2 - Standard** | Full observability, alerts, runbook | Most features |
+| **L3 - Critical** | L2 + chaos testing, DR tested | Payment, auth, core paths |
+
 ### Load Testing
 ```yaml
 # k6 load test example
@@ -275,6 +325,80 @@ export default function () {
   sleep(1);
 }
 ```
+
+## Runbook Requirements
+
+### Runbook Template
+
+Every runbook must follow this structure:
+
+```markdown
+# Runbook: [Issue Name]
+
+## Metadata
+- **Severity**: P1/P2/P3/P4
+- **On-Call Responsibility**: Yes/No
+- **Last Updated**: [Date]
+- **Author**: [Name]
+
+## Symptoms
+- [ ] [Observable symptom 1]
+- [ ] [Observable symptom 2]
+
+## Impact
+- Users affected: [Scope]
+- Business impact: [Description]
+
+## Diagnosis Steps
+
+### Step 1: Check [Component]
+\`\`\`bash
+# Command to run
+\`\`\`
+**Expected output**: [What normal looks like]
+**If abnormal**: Go to Step 2
+
+### Step 2: Check [Next Component]
+...
+
+## Resolution Steps
+
+### Option A: [Quick Fix]
+1. [Step 1]
+2. [Step 2]
+3. Verify: [How to confirm fix]
+
+### Option B: [Full Resolution]
+1. [Step 1]
+...
+
+## Escalation
+- If not resolved in [X] minutes, escalate to [Team/Person]
+- Page: [Contact method]
+
+## Post-Incident
+- [ ] Confirm service restored
+- [ ] Update monitoring if needed
+- [ ] Schedule postmortem if P1/P2
+```
+
+### Required Runbooks for Launch
+
+| Runbook | Priority | Owner |
+|---------|----------|-------|
+| Service down (complete outage) | P1 | SRE |
+| High error rate | P1 | SRE |
+| Database connection issues | P1 | SRE |
+| Third-party integration failure | P2 | Backend |
+| High latency | P2 | SRE |
+| Certificate expiration | P2 | DevOps |
+| Disk space low | P3 | DevOps |
+| Memory leak suspected | P3 | Backend |
+
+### Runbook Review Schedule
+- Monthly: Review all P1 runbooks
+- Quarterly: Review all runbooks
+- After incidents: Update relevant runbooks
 
 ## Anti-Patterns to Avoid
 

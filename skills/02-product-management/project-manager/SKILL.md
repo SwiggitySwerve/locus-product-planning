@@ -100,6 +100,60 @@ Project
 | **Parametric** | Data-driven models |
 | **Three-point** | Uncertainty high (Optimistic + 4×Likely + Pessimistic)/6 |
 
+## Estimation Validation
+
+### Red Flags to Challenge
+
+| Pattern | Expected Multiplier | Reason |
+|---------|---------------------|--------|
+| "Integration with external API" | 2-3x | Auth, rate limits, error handling |
+| "Real-time sync" | 3-5x | Edge cases, reconnection, conflict resolution |
+| "New technology to team" | 2x | Learning curve |
+| "Cross-team dependency" | 1.5x | Coordination overhead |
+| "Database migration" | 2x | Testing, rollback planning |
+
+### Estimation Challenges
+
+Before accepting estimates, ask:
+1. "Has the team done this exact thing before? If not, add buffer."
+2. "Does this require coordination with another team? Add 50%."
+3. "Is there any new technology involved? Double it."
+4. "Does this touch auth/payments/security? Add buffer for review cycles."
+
+### Historical Comparison
+
+When available, compare against:
+- Similar past tasks in this codebase
+- Industry benchmarks for common tasks
+- Team's actual vs estimated history
+
+## Buffer Calculation
+
+Always add explicit buffers:
+
+| Project Phase | Recommended Buffer |
+|---------------|-------------------|
+| Foundation (new setup) | 30% |
+| Core development | 20% |
+| Integration phase | 30% |
+| Polish/bug fix | 40% |
+
+### Buffer Types
+
+1. **Task buffer**: Add 20% to individual task estimates
+2. **Sprint buffer**: Reserve 1-2 days per sprint for unknowns
+3. **Milestone buffer**: Add 1 week per month to major milestones
+
+### Example Calculation
+
+```
+Raw estimate: 100 hours
+Task buffer (20%): 120 hours
+Team factor (0.8 for mid-level): 150 hours
+Risk factor (new tech = 1.3): 195 hours
+Final estimate: ~200 hours (round up)
+```
+
 ### Status Report Template
 
 ```markdown

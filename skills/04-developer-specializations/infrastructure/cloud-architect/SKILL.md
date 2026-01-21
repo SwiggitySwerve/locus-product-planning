@@ -257,6 +257,78 @@ resource "aws_globalaccelerator_accelerator" "main" {
 }
 ```
 
+## Infrastructure Cost Estimation
+
+### Cost Estimation Template
+
+Every project should include infrastructure cost estimates:
+
+```markdown
+## Infrastructure Cost Estimate: [Project]
+
+### Compute
+| Service | Spec | Quantity | Monthly Cost |
+|---------|------|----------|--------------|
+| API servers | t3.large | 3 | $XXX |
+| Workers | t3.medium | 2 | $XXX |
+| **Subtotal** | | | $XXX |
+
+### Database
+| Service | Spec | Storage | Monthly Cost |
+|---------|------|---------|--------------|
+| RDS PostgreSQL | db.r5.large | 100GB | $XXX |
+| Redis | cache.r5.large | - | $XXX |
+| **Subtotal** | | | $XXX |
+
+### Storage & CDN
+| Service | Volume | Monthly Cost |
+|---------|--------|--------------|
+| S3 | 500GB | $XXX |
+| CloudFront | 1TB transfer | $XXX |
+| **Subtotal** | | $XXX |
+
+### Monitoring & Logging
+| Service | Tier | Monthly Cost |
+|---------|------|--------------|
+| DataDog | Pro | $XXX |
+| CloudWatch | Pay-as-you-go | $XXX |
+| **Subtotal** | | $XXX |
+
+### Third-Party Services
+| Service | Plan | Monthly Cost |
+|---------|------|--------------|
+| Auth0 | Pro | $XXX |
+| Twilio | Pay-as-you-go | $XXX |
+| **Subtotal** | | $XXX |
+
+### Summary
+| Category | Monthly | Annual |
+|----------|---------|--------|
+| Compute | $XXX | $XXX |
+| Database | $XXX | $XXX |
+| Storage/CDN | $XXX | $XXX |
+| Monitoring | $XXX | $XXX |
+| Third-Party | $XXX | $XXX |
+| **Total** | $XXX | $XXX |
+```
+
+### Scaling Projections
+
+| Users | Monthly Cost | Notes |
+|-------|--------------|-------|
+| 1,000 | $XXX | Launch baseline |
+| 10,000 | $XXX | First scale point |
+| 100,000 | $XXX | Requires architecture review |
+
+### Cost Optimization Checklist
+- [ ] Right-sized instances (not over-provisioned)
+- [ ] Reserved instances for baseline load (1-3 year)
+- [ ] Spot instances for batch/worker jobs
+- [ ] Storage lifecycle policies (archive old data)
+- [ ] CDN for static assets
+- [ ] Database read replicas vs scaling up
+- [ ] Serverless for variable workloads
+
 ## Anti-Patterns to Avoid
 
 | Anti-Pattern | Better Approach |

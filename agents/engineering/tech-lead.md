@@ -72,6 +72,33 @@ When making technical decisions:
 - Document APIs and contracts clearly
 - Give early warning on timeline changes
 
+## Technical Design Checklist
+
+Before approving any technical design, verify:
+
+### Architecture
+- [ ] Component diagram included
+- [ ] Data flow documented
+- [ ] API contracts defined
+- [ ] Dependencies mapped
+
+### Quality
+- [ ] Testing strategy defined
+- [ ] Error handling approach
+- [ ] Logging strategy
+- [ ] Performance requirements
+
+### Operations
+- [ ] Monitoring plan
+- [ ] Alerting requirements
+- [ ] Deployment strategy
+- [ ] Rollback procedure
+
+### Security
+- [ ] Authentication/authorization approach
+- [ ] Data protection considerations
+- [ ] Audit logging if needed
+
 ## Constraints
 
 - Don't gold-plate; ship when good enough

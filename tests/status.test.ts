@@ -135,15 +135,15 @@ describe('Status Query Engine', () => {
       expect(tierStatus.tier).toBe('tier3');
       expect(tierStatus.name).toBe('Technical Design');
       expect(tierStatus.council).toBe('architecture-council');
-      expect(tierStatus.artifacts).toHaveLength(3); // adrs, stories, tasks
+      expect(tierStatus.artifacts).toHaveLength(4); // adrs, stories, tasks, test-strategy
     });
 
     it('should compute tier completion percentage', async () => {
       const tierStatus = await getTierStatus('INI-TEST-004', 'tier3', schema);
 
-      // adrs: done (1), stories: ready (0), tasks: blocked (0)
-      // Completion = 1/3 = 33.33%
-      expect(tierStatus.completionPct).toBeCloseTo(33.33, 0);
+      // adrs: done (1), stories: ready (0), tasks: blocked (0), test-strategy: blocked (0)
+      // Completion = 1/4 = 25%
+      expect(tierStatus.completionPct).toBeCloseTo(25, 0);
     });
 
     it('should identify tier as blocked if any artifact is blocked', async () => {

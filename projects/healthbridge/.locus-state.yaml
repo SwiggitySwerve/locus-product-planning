@@ -1,0 +1,9 @@
+project: HealthBridge
+current_step: 4
+steps:
+  1: complete
+  2: complete
+  3: complete
+  4: complete
+created: 2026-01-20
+description: HIPAA-compliant telemedicine platform for video consultations

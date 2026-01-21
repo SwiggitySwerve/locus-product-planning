@@ -192,6 +192,22 @@ artifacts:
       - stories
     gate: design
 
+  - id: test-strategy
+    tier: tier3
+    generates: tier3/test-strategy.md
+    template: test-strategy.md
+    description: Testing strategy and quality gates
+    instruction: |
+      Create a testing strategy that covers:
+      - Test pyramid for this project
+      - Testing approach by component
+      - Test environment requirements
+      - Quality gates and metrics
+      - Testing timeline aligned with sprints
+    requires:
+      - adrs
+      - stories
+
   # Tier 4: Implementation
   - id: implementation
     tier: tier4
@@ -210,6 +226,21 @@ artifacts:
       The dev-coordinator maintains this file.
     requires:
       - tasks
+
+  - id: operational-readiness
+    tier: tier4
+    generates: tier4/ops-readiness.md
+    template: ops-readiness.md
+    description: Operational readiness checklist
+    instruction: |
+      Document operational requirements:
+      - Monitoring and alerting setup
+      - Runbooks for common issues
+      - Scaling considerations
+      - Disaster recovery plan
+      - Deployment and rollback procedures
+    requires:
+      - implementation
 
   - id: review
     tier: tier4
@@ -315,6 +346,11 @@ gates:
         pattern: tier3/tasks/*.yaml
         field: skills_required
         description: All tasks have required skills
+
+      - id: test_strategy_exists
+        check: file_exists
+        path: tier3/test-strategy.md
+        description: Testing strategy documented
 
   implementation:
     description: Implementation complete and reviewed

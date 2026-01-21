@@ -133,6 +133,59 @@ if (error) return <ErrorMessage error={error} />;
 return <DataDisplay data={data} />;
 ```
 
+## Accessibility Requirements
+
+### WCAG 2.1 Compliance Levels
+
+| Level | Requirement | Target |
+|-------|-------------|--------|
+| A | Minimum | Required for all projects |
+| AA | Standard | Required for public-facing |
+| AAA | Enhanced | Required for government/healthcare |
+
+### Accessibility Checklist
+
+#### Perceivable
+- [ ] All images have meaningful alt text
+- [ ] Videos have captions and transcripts
+- [ ] Color is not the only indicator of meaning
+- [ ] Text has sufficient contrast (4.5:1 minimum for normal text)
+- [ ] Content is readable at 200% zoom
+
+#### Operable
+- [ ] All functionality available via keyboard
+- [ ] No keyboard traps
+- [ ] Skip links for main navigation
+- [ ] Focus indicators clearly visible
+- [ ] No content that flashes more than 3 times per second
+
+#### Understandable
+- [ ] Page language declared in HTML
+- [ ] Consistent navigation across pages
+- [ ] Error messages are clear and helpful
+- [ ] All form inputs have visible labels
+- [ ] Instructions don't rely on sensory characteristics
+
+#### Robust
+- [ ] Valid, semantic HTML
+- [ ] ARIA attributes used correctly (when needed)
+- [ ] Works with screen readers (VoiceOver, NVDA)
+- [ ] Custom components have appropriate roles
+
+### Testing Tools
+| Tool | Type | Use For |
+|------|------|---------|
+| axe DevTools | Automated | Catch 30-40% of issues |
+| WAVE | Browser extension | Visual accessibility report |
+| Lighthouse | Automated | Accessibility score |
+| VoiceOver/NVDA | Manual | Screen reader testing |
+| Keyboard only | Manual | Tab navigation testing |
+
+### Sprint Planning for Accessibility
+- Accessibility review: 2-4 hours per major feature
+- Screen reader testing: 1-2 hours per release
+- Include in Definition of Done for UI work
+
 ## Anti-Patterns to Avoid
 
 | Anti-Pattern | Better Approach |
