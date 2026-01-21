@@ -1,7 +1,7 @@
 {
-  "name": "opencode-locus",
+  "name": "opencode-locus-product-planning",
   "version": "1.0.0",
-  "description": "AI-powered project planning for OpenCode - Vision → Features → Design → Build",
+  "description": "AI-powered product planning for OpenCode - Vision → Features → Design → Build",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -38,12 +38,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/SwiggitySwerve/locus.git"
+    "url": "git+https://github.com/SwiggitySwerve/locus-product-planning.git"
   },
   "bugs": {
-    "url": "https://github.com/SwiggitySwerve/locus/issues"
+    "url": "https://github.com/SwiggitySwerve/locus-product-planning/issues"
   },
-  "homepage": "https://github.com/SwiggitySwerve/locus#readme",
+  "homepage": "https://github.com/SwiggitySwerve/locus-product-planning#readme",
   "peerDependencies": {
     "@opencode-ai/plugin": ">=1.0.0"
   },

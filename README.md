@@ -1,6 +1,6 @@
-# Locus
+# Locus Product Planning
 
-**Your center point for planning and building projects with AI.**
+**Your center point for planning and building products with AI.**
 
 Locus guides you from idea to implementation through a simple 4-step process. No complicated commands to learn - just describe what you want to build.
 
@@ -50,7 +50,7 @@ Add to your `opencode.json`:
 
 ```json
 {
-  "plugin": ["opencode-locus"]
+  "plugin": ["opencode-locus-product-planning"]
 }
 ```
 
@@ -61,8 +61,8 @@ That's it! OpenCode will automatically install the plugin on startup.
 Clone the repo and copy the skill:
 
 ```bash
-git clone https://github.com/SwiggitySwerve/locus.git
-cp -r locus/.opencode/skills/locus ~/.config/opencode/skills/
+git clone https://github.com/SwiggitySwerve/locus-product-planning.git
+cp -r locus-product-planning/.opencode/skills/locus ~/.config/opencode/skills/
 ```
 
 Or reference it directly in `opencode.json`:
@@ -76,8 +76,8 @@ Or reference it directly in `opencode.json`:
 ### Development Setup
 
 ```bash
-git clone https://github.com/SwiggitySwerve/locus.git
-cd locus
+git clone https://github.com/SwiggitySwerve/locus-product-planning.git
+cd locus-product-planning
 npm install
 npm test  # 79 tests
 ```
