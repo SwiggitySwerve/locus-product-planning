@@ -23,7 +23,8 @@ import type {
 async function extractFrontmatter(filePath: string): Promise<Record<string, unknown>> {
   try {
     const content = await readFile(filePath, 'utf-8');
-    const match = content.match(/^---\n([\s\S]*?)\n---/);
+    // Handle both Unix (\n) and Windows (\r\n) line endings
+    const match = content.match(/^---\r?\n([\s\S]*?)\r?\n---/);
     if (match) {
       return parseYaml(match[1]) as Record<string, unknown>;
     }
