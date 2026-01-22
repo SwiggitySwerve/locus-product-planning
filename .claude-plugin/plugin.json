@@ -1,0 +1,32 @@
+{
+  "$schema": "https://claude.ai/plugin.json",
+  "name": "locus",
+  "version": "1.0.0",
+  "description": "AI-powered project planning with 40+ skills: Vision -> Features -> Design -> Build",
+  "author": "swiggityswerve",
+  "license": "MIT",
+  "homepage": "https://github.com/SwiggitySwerve/locus-product-planning",
+  "repository": "https://github.com/SwiggitySwerve/locus-product-planning",
+  "hooksPath": "hooks/hooks.json",
+  "skills": {
+    "directory": "skills",
+    "bootstrap": "skills/using-locus/SKILL.md"
+  },
+  "agents": {
+    "directory": "agents"
+  },
+  "commands": {
+    "locus": {
+      "description": "Start or resume a project (Vision -> Features -> Design -> Build)",
+      "template": "Read and follow the skill at skills/using-locus/SKILL.md to help the user plan their project.\n\nIf they provided a project idea: $ARGUMENTS\nStart with Step 1: Vision.\n\nIf no idea provided, ask what they want to build."
+    },
+    "locus-skills": {
+      "description": "List available skills",
+      "template": "List the available Locus skills by reading the skills/ directory structure.\n\nCategories:\n- 01-executive-suite: CEO, CTO, CPO, CFO, COO\n- 02-product-management: Product manager, project manager, etc.\n- 03-engineering-leadership: Tech lead, staff engineer, etc.\n- 04-developer-specializations: Frontend, backend, devops, data, AI\n- 05-specialists: Compliance, etc.\n\nIf user specified a filter: $ARGUMENTS"
+    },
+    "locus-skill": {
+      "description": "Load a specific skill",
+      "template": "Read and follow the skill: skills/$ARGUMENTS/SKILL.md\n\nIf no skill specified, list available skills from the skills/ directory."
+    }
+  }
+}

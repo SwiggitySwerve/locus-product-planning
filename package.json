@@ -10,11 +10,15 @@
       "import": "./dist/index.js",
       "types": "./dist/index.d.ts"
     },
-    "./skill": "./.opencode/skills/locus/SKILL.md"
+    "./skills": "./skills",
+    "./skills/*": "./skills/*"
   },
   "files": [
     "dist",
-    ".opencode/skills/locus",
+    "skills",
+    "agents",
+    "hooks",
+    ".claude-plugin",
     "opencode.json"
   ],
   "scripts": {
@@ -31,10 +35,13 @@
   "keywords": [
     "opencode",
     "opencode-plugin",
+    "claude",
+    "claude-code",
     "ai",
     "planning",
     "project-management",
-    "workflow"
+    "workflow",
+    "skills"
   ],
   "author": "swiggityswerve",
   "license": "MIT",
