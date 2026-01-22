@@ -13,9 +13,9 @@ AI: I'll help you plan and build this step by step.
     [Guides you through 4 simple steps]
 ```
 
-Or use the `/plan` command:
+Or use the `/locus` command:
 ```
-/plan a mobile app for tracking workouts
+/locus a mobile app for tracking workouts
 ```
 
 ## How It Works
@@ -33,14 +33,31 @@ Just say **"continue"** to move forward.
 
 ## Commands
 
-| What you want | What to say |
-|--------------|-------------|
-| Start a project | "I want to build..." or `/plan` |
-| Keep going | "continue" or "next" |
-| Check progress | "where are we?" or "status" |
-| See all projects | `/plan list` |
+| Command | Description |
+|---------|-------------|
+| `/locus` | Start or resume a project |
+| `/locus-skills` | List available skills |
+| `/locus-skill <name>` | Load a specific skill |
+| `/locus-agents` | List available agents |
 
-That's it. No complicated commands to learn.
+Or just say "I want to build..." to get started.
+
+## Skills
+
+Locus includes 40+ specialized skills for different perspectives:
+
+| Category | Examples |
+|----------|----------|
+| Executive | ceo-strategist, cto-architect, cpo-product |
+| Product | product-manager, project-manager, scrum-master |
+| Engineering | tech-lead, staff-engineer, principal-engineer |
+| Developer | frontend, backend, devops, data-engineer, ml-engineer |
+| Quality | qa-expert, security-auditor, performance-engineer |
+
+To load a skill, read its file:
+```
+Read skills/02-product-management/product-manager/SKILL.md
+```
 
 ## Example
 
@@ -85,7 +102,9 @@ AI: [Moves to features discussion...]
 
 The framework underneath supports:
 - Detailed planning artifacts
-- Gate-based quality checks
+- Gate-based quality checks  
 - Multi-tier organizational workflows
+- 40+ specialized skills
+- 14 agent definitions
 
-See `openspec/` for the full framework. But you don't need any of that to get started.
+See `openspec/` for the full framework, or `skills/` for all available skills.

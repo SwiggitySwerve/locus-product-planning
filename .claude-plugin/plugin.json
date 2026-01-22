@@ -1,7 +1,7 @@
 {
   "$schema": "https://claude.ai/plugin.json",
   "name": "locus",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "AI-powered project planning with 40+ skills: Vision -> Features -> Design -> Build",
   "author": "swiggityswerve",
   "license": "MIT",

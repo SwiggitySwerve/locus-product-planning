@@ -4,7 +4,7 @@
   "display_name": "Locus - Project Planning",
   "description": "Your center point for planning and building projects with AI. Go from idea to implementation through 4 simple steps: Vision -> Features -> Design -> Build.",
   "long_description": "Locus provides a comprehensive skills framework for AI-powered project planning. It includes:\n\n- 40+ specialized skills covering executive strategy, product management, engineering leadership, and developer specializations\n- 14 agent definitions for specialized perspectives\n- Automatic skill loading and discovery\n- Simple 4-step project planning workflow\n\nPerfect for:\n- Starting new projects from scratch\n- Getting diverse perspectives on technical decisions\n- Following proven development workflows\n- Organizing complex multi-step implementations",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": "swiggityswerve",
   "license": "MIT",
   "repository": "https://github.com/SwiggitySwerve/locus-product-planning",

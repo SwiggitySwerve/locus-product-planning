@@ -72,7 +72,8 @@ export interface ResolvedSkill {
 export function extractFrontmatter(filePath: string): SkillMetadata {
   try {
     const content = readFileSync(filePath, 'utf-8');
-    const lines = content.split('\n');
+    // Normalize line endings (handle Windows \r\n)
+    const lines = content.replace(/\r\n/g, '\n').split('\n');
 
     let inFrontmatter = false;
     const metadata: SkillMetadata = { name: '', description: '' };
