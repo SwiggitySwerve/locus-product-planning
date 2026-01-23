@@ -1,21 +1,3 @@
 {
-  "$schema": "https://opencode.ai/config.json",
-  "command": {
-    "locus": {
-      "template": "Use the use_skill tool to load 'locus:using-locus' and help the user plan their project.\n\nIf they provided a project idea: $ARGUMENTS\nStart with Step 1: Vision.\n\nIf no idea provided, ask what they want to build.",
-      "description": "Start or resume a project (Vision → Features → Design → Build)"
-    },
-    "locus-skills": {
-      "template": "Use the find_skills tool to list all available skills.\n\nIf the user specified a filter: $ARGUMENTS\nApply it as a category, tier, or search filter.\n\nShow the results in a clean, organized format.",
-      "description": "List available skills (optionally filter by category/tier/search)"
-    },
-    "locus-skill": {
-      "template": "Use the use_skill tool to load the requested skill: $ARGUMENTS\n\nIf no skill name provided, use find_skills to show available options.",
-      "description": "Load a specific skill by name"
-    },
-    "locus-agents": {
-      "template": "Use the find_agents tool to list all available agent definitions.\n\nShow them grouped by category with descriptions.",
-      "description": "List available agents"
-    }
-  }
+  "$schema": "https://opencode.ai/config.json"
 }

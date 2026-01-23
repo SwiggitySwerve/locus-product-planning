@@ -1,28 +1,31 @@
 {
   "name": "locus-product-planning",
-  "version": "1.2.0",
+  "version": "1.2.17",
   "description": "AI-powered product planning for OpenCode - Vision → Features → Design → Build",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "require": "./dist/index.cjs"
     },
+    "./package.json": "./package.json",
     "./skills": "./skills",
     "./skills/*": "./skills/*"
   },
+  "module": "./dist/index.js",
   "files": [
     "dist",
     "skills",
     "agents",
-    "hooks",
-    ".claude-plugin",
     "opencode.json"
   ],
   "scripts": {
-    "build": "tsc -p tsconfig.plugin.json",
+    "build": "tsup",
+    "build:tsc": "tsc -p tsconfig.plugin.json",
+    "dev": "tsup --watch",
     "prepublishOnly": "npm run build",
     "test": "vitest run",
     "test:watch": "vitest",
@@ -63,7 +66,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.39.2",
-    "@opencode-ai/plugin": "^1.1.28",
+    "@opencode-ai/plugin": "^1.1.32",
     "@types/node": "^20.10.0",
     "@typescript-eslint/eslint-plugin": "^8.53.1",
     "@typescript-eslint/parser": "^8.53.1",
@@ -71,6 +74,7 @@
     "glob": "^10.3.10",
     "globals": "^17.0.0",
     "ts-node": "^10.9.2",
+    "tsup": "^8.0.0",
     "tsx": "^4.21.0",
     "typescript": "^5.3.0",
     "vitest": "^1.2.0",

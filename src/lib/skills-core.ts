@@ -4,7 +4,209 @@
  */
 
 import { readFileSync, existsSync, readdirSync } from 'fs';
-import { join, basename } from 'path';
+import { join as pathJoin, basename, dirname, resolve } from 'path';
+import { fileURLToPath } from 'url';
+
+// Cache the dirname at module load time
+let _cachedDirname: string | null = null;
+
+/**
+ * Safely convert a value to string, returning null if it can't be done.
+ */
+function safeString(value: unknown): string | null {
+  if (typeof value === 'string' && value.length > 0) {
+    return value;
+  }
+  return null;
+}
+
+/**
+ * Safe wrapper around path.join that ensures all arguments are strings.
+ * This prevents the "paths[0] must be string, got object" error that can
+ * occur when bundled code has issues with module resolution.
+ */
+function safeJoin(...paths: unknown[]): string {
+  const stringPaths: string[] = [];
+  for (const p of paths) {
+    if (typeof p === 'string') {
+      stringPaths.push(p);
+    } else if (p != null) {
+      // Try to convert to string
+      const str = String(p);
+      if (str && str !== '[object Object]' && str !== 'undefined' && str !== 'null') {
+        stringPaths.push(str);
+      }
+    }
+  }
+
+  if (stringPaths.length === 0) {
+    return '.';
+  }
+
+  // Use the imported pathJoin function
+  try {
+    return pathJoin(...stringPaths);
+  } catch {
+    // Fallback: manual join with separator detection
+    const sep = stringPaths[0].includes('\\') ? '\\' : '/';
+    return stringPaths.join(sep).replace(/[\/\\]+/g, sep);
+  }
+}
+
+/**
+ * Get the directory of the current module.
+ * Works in both ESM and CJS contexts, and when bundled.
+ */
+function getCurrentDirname(): string {
+  // Return cached value if available and valid
+  if (typeof _cachedDirname === 'string' && _cachedDirname.length > 0) {
+    return _cachedDirname;
+  }
+
+  // Try ESM approach first (import.meta.url)
+  try {
+    const meta = import.meta;
+    const url = safeString(meta?.url);
+    if (url && url.startsWith('file:')) {
+      const result = safeString(dirname(fileURLToPath(url)));
+      if (result) {
+        _cachedDirname = result;
+        return result;
+      }
+    }
+  } catch {
+    // ESM approach failed
+  }
+
+  // CJS approach: check if __dirname is available (global in CJS contexts)
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const globalDirname = safeString((globalThis as any).__dirname);
+    if (globalDirname) {
+      _cachedDirname = globalDirname;
+      return globalDirname;
+    }
+  } catch {
+    // __dirname not available
+  }
+
+  // Try require.resolve to find the package
+  try {
+    const packageJsonPath = safeString(require.resolve('locus-product-planning/package.json'));
+    if (packageJsonPath) {
+      const result = safeString(safeJoin(dirname(packageJsonPath), 'dist'));
+      if (result) {
+        _cachedDirname = result;
+        return result;
+      }
+    }
+  } catch {
+    // Package not found in node_modules
+  }
+
+  // Get home directory (Windows and Unix compatible)
+  const homeDir = safeString(process.env.USERPROFILE) || safeString(process.env.HOME);
+
+  if (homeDir) {
+    // Search common cache locations for the package
+    const cacheLocations = [
+      safeJoin(homeDir, '.cache', 'opencode', 'node_modules', 'locus-product-planning', 'dist'),
+      safeJoin(homeDir, '.config', 'opencode', 'node_modules', 'locus-product-planning', 'dist'),
+    ];
+
+    for (const loc of cacheLocations) {
+      try {
+        if (existsSync(loc)) {
+          const result = safeString(loc);
+          if (result) {
+            _cachedDirname = result;
+            return result;
+          }
+        }
+      } catch {
+        // Skip inaccessible paths
+      }
+    }
+  }
+
+  // Fallback: Use process.cwd() and check if we're in the package directory
+  const cwd = safeString(process.cwd());
+  if (cwd) {
+    try {
+      const pkgPath = resolve(cwd, 'package.json');
+      if (existsSync(pkgPath)) {
+        const pkg = JSON.parse(readFileSync(pkgPath, 'utf-8'));
+        if (pkg.name === 'locus-product-planning') {
+          const result = safeString(resolve(cwd, 'dist'));
+          if (result) {
+            _cachedDirname = result;
+            return result;
+          }
+        }
+      }
+    } catch {
+      // Failed to read package.json
+    }
+
+    // Last resort: return cwd/dist
+    const fallback = safeString(resolve(cwd, 'dist'));
+    if (fallback) {
+      _cachedDirname = fallback;
+      return fallback;
+    }
+  }
+
+  // Absolute last resort: return a hardcoded fallback that's definitely a string
+  const absoluteFallback = '/tmp/locus-product-planning/dist';
+  _cachedDirname = absoluteFallback;
+  return absoluteFallback;
+}
+
+// Lazy-initialized at first access to avoid module load issues
+let _currentDirname: string | null = null;
+
+function ensureCurrentDirname(): string {
+  if (_currentDirname === null) {
+    _currentDirname = getCurrentDirname();
+  }
+  return _currentDirname;
+}
+
+/**
+ * Get the package root directory (parent of dist/).
+ */
+export function getPackageRoot(): string {
+  const dir = ensureCurrentDirname();
+  // Use string concatenation to avoid any potential issues with join
+  if (dir.endsWith('/') || dir.endsWith('\\')) {
+    return dir + '..';
+  }
+  // Manually compute parent
+  const lastSlash = Math.max(dir.lastIndexOf('/'), dir.lastIndexOf('\\'));
+  if (lastSlash > 0) {
+    return dir.substring(0, lastSlash);
+  }
+  return dir;
+}
+
+/**
+ * Get the locus skills directory.
+ */
+export function getLocusSkillsDir(): string {
+  const root = getPackageRoot();
+  // Use platform-appropriate separator
+  const sep = root.includes('\\') ? '\\' : '/';
+  return root + sep + 'skills';
+}
+
+/**
+ * Get the locus agents directory.
+ */
+export function getLocusAgentsDir(): string {
+  const root = getPackageRoot();
+  const sep = root.includes('\\') ? '\\' : '/';
+  return root + sep + 'agents';
+}
 
 export interface SkillMetadata {
   name: string;
@@ -70,6 +272,10 @@ export interface ResolvedSkill {
  * ---
  */
 export function extractFrontmatter(filePath: string): SkillMetadata {
+  // Validate filePath is a string
+  if (typeof filePath !== 'string' || !filePath) {
+    return { name: '', description: '' };
+  }
   try {
     const content = readFileSync(filePath, 'utf-8');
     // Normalize line endings (handle Windows \r\n)
@@ -182,6 +388,10 @@ export function extractFrontmatter(filePath: string): SkillMetadata {
  * Strip YAML frontmatter from content, returning just the body.
  */
 export function stripFrontmatter(content: string): string {
+  // Validate content is a string
+  if (typeof content !== 'string') {
+    return '';
+  }
   const lines = content.split('\n');
   let inFrontmatter = false;
   let frontmatterEnded = false;
@@ -215,6 +425,8 @@ export function findSkillsInDir(
 ): SkillInfo[] {
   const skills: SkillInfo[] = [];
 
+  // Validate dir is a string
+  if (typeof dir !== 'string' || !dir) return skills;
   if (!existsSync(dir)) return skills;
 
   function recurse(currentDir: string, depth: number): void {
@@ -229,12 +441,12 @@ export function findSkillsInDir(
 
     for (const entry of entries) {
       if (entry.name.startsWith('.')) continue;
-      
-      const fullPath = join(currentDir, entry.name);
+
+      const fullPath = safeJoin(currentDir, entry.name);
 
       if (entry.isDirectory()) {
         // Check for SKILL.md in this directory
-        const skillFile = join(fullPath, 'SKILL.md');
+        const skillFile = safeJoin(fullPath, 'SKILL.md');
         if (existsSync(skillFile)) {
           const meta = extractFrontmatter(skillFile);
           skills.push({
@@ -266,6 +478,8 @@ export function findSkillsInDir(
 export function findAgentsInDir(dir: string, maxDepth = 3): AgentInfo[] {
   const agents: AgentInfo[] = [];
 
+  // Validate dir is a string
+  if (typeof dir !== 'string' || !dir) return agents;
   if (!existsSync(dir)) return agents;
 
   function recurse(currentDir: string, depth: number, category: string): void {
@@ -280,8 +494,8 @@ export function findAgentsInDir(dir: string, maxDepth = 3): AgentInfo[] {
 
     for (const entry of entries) {
       if (entry.name.startsWith('.')) continue;
-      
-      const fullPath = join(currentDir, entry.name);
+
+      const fullPath = safeJoin(currentDir, entry.name);
 
       if (entry.isDirectory()) {
         // Use directory name as category
@@ -319,6 +533,11 @@ export function resolveSkillPath(
   personalSkillsDir: string | null,
   projectSkillsDir: string | null
 ): ResolvedSkill | null {
+  // Validate skillName is a string
+  if (typeof skillName !== 'string' || !skillName) {
+    return null;
+  }
+
   // Parse namespace prefix
   const forceProject = skillName.startsWith('project:');
   const forceLocus = skillName.startsWith('locus:');
@@ -356,11 +575,14 @@ function findSkillByName(
   skillName: string,
   sourceType: 'project' | 'personal' | 'locus'
 ): ResolvedSkill | null {
+  // Validate inputs are strings
+  if (typeof baseDir !== 'string' || !baseDir) return null;
+  if (typeof skillName !== 'string' || !skillName) return null;
   if (!existsSync(baseDir)) return null;
 
   // Direct path check
-  const directPath = join(baseDir, skillName);
-  const directSkillFile = join(directPath, 'SKILL.md');
+  const directPath = safeJoin(baseDir, skillName);
+  const directSkillFile = safeJoin(directPath, 'SKILL.md');
   if (existsSync(directSkillFile)) {
     return {
       skillFile: directSkillFile,
@@ -392,8 +614,8 @@ export function getBootstrapContent(
   compact = false
 ): string | null {
   // Try to find the main locus skill
-  const usingLocusPath = join(locusSkillsDir, 'using-locus', 'SKILL.md');
-  const legacyLocusPath = join(locusSkillsDir, 'locus', 'SKILL.md');
+  const usingLocusPath = safeJoin(locusSkillsDir, 'using-locus', 'SKILL.md');
+  const legacyLocusPath = safeJoin(locusSkillsDir, 'locus', 'SKILL.md');
   
   let skillFile: string | null = null;
   if (existsSync(usingLocusPath)) {
@@ -445,7 +667,7 @@ export function normalizePath(p: string | undefined, homeDir: string): string | 
   
   // Expand ~ to home directory
   if (normalized.startsWith('~/')) {
-    normalized = join(homeDir, normalized.slice(2));
+    normalized = safeJoin(homeDir, normalized.slice(2));
   } else if (normalized === '~') {
     normalized = homeDir;
   }
