@@ -196,9 +196,10 @@ Body text here.`;
       const deepSkills = findSkillsInDir(join(TEST_DIR, 'skills'), 'project', 4);
       
       // deep-skill is nested deeper, should only appear with higher maxDepth
-      const shallowNames = shallowSkills.map(s => s.name);
       const deepNames = deepSkills.map(s => s.name);
       
+      // Basic skills should be found at any depth
+      expect(shallowSkills.length).toBeGreaterThan(0);
       expect(deepNames).toContain('deep-skill');
     });
 

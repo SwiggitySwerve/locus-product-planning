@@ -27,6 +27,19 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build
+        run: npm run build
+
+      - name: Test
+        run: npm test
 
       - name: Configure Git
         run: |
@@ -37,7 +50,8 @@ jobs:
         run: git pull --rebase origin ${{ github.ref_name }}
 
       - name: Bump version
-        run: npm version ${{ inputs.version }} -m "Release v%s"
+        run: |
+          npm version ${{ inputs.version }} -m "chore(release): v%s"
 
       - name: Push changes with retry
         run: |

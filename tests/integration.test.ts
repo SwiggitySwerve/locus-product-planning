@@ -9,8 +9,8 @@ import { join } from 'path';
 import { parse as parseYaml, stringify as stringifyYaml } from 'yaml';
 
 import { loadSchema } from '../openspec/lib/schema.js';
-import { getInitiativeStatus, getAllArtifactStatuses, getTierStatus } from '../openspec/lib/status.js';
-import { checkGate, canPassGate } from '../openspec/lib/gates.js';
+import { getInitiativeStatus, getTierStatus } from '../openspec/lib/status.js';
+import { checkGate } from '../openspec/lib/gates.js';
 import {
   canTransition,
   applyTransition,
@@ -69,7 +69,7 @@ describe('Initiative Lifecycle Integration Tests', () => {
     }
 
     it('should start in draft stage with all artifacts blocked', async () => {
-      const initPath = await createInitiative();
+      await createInitiative();
 
       const status = await getInitiativeStatus(INITIATIVE_ID, schema, TEST_DIR);
 

@@ -16,7 +16,7 @@ import {
   isBlockedStage,
   isApprovedStage,
 } from '../openspec/lib/state-machine.js';
-import type { Schema, StageStatus } from '../openspec/lib/types.js';
+import type { Schema } from '../openspec/lib/types.js';
 
 describe('State Machine', () => {
   let schema: Schema;

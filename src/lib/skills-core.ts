@@ -3,8 +3,8 @@
  * Shared utilities for skill discovery, loading, and management
  */
 
-import { readFileSync, existsSync, readdirSync, statSync } from 'fs';
-import { join, dirname, basename } from 'path';
+import { readFileSync, existsSync, readdirSync } from 'fs';
+import { join, basename } from 'path';
 
 export interface SkillMetadata {
   name: string;
@@ -94,8 +94,8 @@ export function extractFrontmatter(filePath: string): SkillMetadata {
 
       if (inFrontmatter) {
         // Check for nested object entry (starts with 2 spaces)
-        if (inNestedObject && line.match(/^  \w+:/)) {
-          const nestedMatch = line.match(/^  (\w+):\s*(.*)$/);
+        if (inNestedObject && line.match(/^ {2}\w+:/)) {
+          const nestedMatch = line.match(/^ {2}(\w+):\s*(.*)$/);
           if (nestedMatch) {
             const [, key, value] = nestedMatch;
             nestedObject[key] = value.trim().replace(/^["']|["']$/g, ''); // Strip quotes

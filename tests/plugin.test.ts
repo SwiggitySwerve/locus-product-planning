@@ -3,6 +3,8 @@
  * Tests for the OpenCode plugin tools and event handlers
  */
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { describe, it, expect, beforeAll, vi } from 'vitest';
 import { join } from 'path';
 import { existsSync } from 'fs';

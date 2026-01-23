@@ -7,7 +7,6 @@ import { describe, it, expect, beforeAll } from 'vitest';
 import { loadSchema } from '../openspec/lib/schema.js';
 import {
   getArtifactStatus,
-  getAllArtifactStatuses,
   getTierStatus,
   getInitiativeStatus,
 } from '../openspec/lib/status.js';

@@ -7,8 +7,8 @@
 import { parseArgs } from 'node:util';
 import { join } from 'path';
 import { loadSchema } from '../lib/schema.js';
-import { getInitiativeStatus, getTierStatus, loadInitiativeState } from '../lib/status.js';
-import { checkGate, canPassGate } from '../lib/gates.js';
+import { getInitiativeStatus, getTierStatus } from '../lib/status.js';
+import { checkGate } from '../lib/gates.js';
 import { canTransition, applyTransition, getCurrentStage } from '../lib/state-machine.js';
 import { workitemsCLI } from '../lib/workitems/cli.js';
 import type { TierId, GateId, StageStatus } from '../lib/types.js';

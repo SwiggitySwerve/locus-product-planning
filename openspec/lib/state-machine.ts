@@ -3,9 +3,9 @@
  * Handles stage transitions and validation
  */
 
-import { readFile, writeFile } from 'fs/promises';
+import { writeFile } from 'fs/promises';
 import { join } from 'path';
-import { parse as parseYaml, stringify as stringifyYaml } from 'yaml';
+import { stringify as stringifyYaml } from 'yaml';
 import { checkGate } from './gates.js';
 import { getInitiativePath, loadInitiativeState } from './status.js';
 import type {
@@ -14,7 +14,6 @@ import type {
   GateId,
   TransitionValidation,
   TransitionResult,
-  InitiativeState,
 } from './types.js';
 
 /**

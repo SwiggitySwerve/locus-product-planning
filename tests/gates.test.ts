@@ -6,7 +6,7 @@
 import { describe, it, expect, beforeAll } from 'vitest';
 import { loadSchema } from '../openspec/lib/schema.js';
 import { checkCriterion, checkGate, canPassGate } from '../openspec/lib/gates.js';
-import type { Schema, GateCriterion } from '../openspec/lib/types.js';
+import type { Schema } from '../openspec/lib/types.js';
 
 describe('Gate Criteria Checking', () => {
   let schema: Schema;
