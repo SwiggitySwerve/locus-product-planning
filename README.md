@@ -2,7 +2,7 @@
 
 **Your center point for planning and building products with AI.**
 
-Locus guides you from idea to implementation through a simple 4-step process, backed by 40+ specialized skills and 14 agent definitions.
+Locus guides you from idea to implementation through a simple 4-step process, backed by 46 specialized skills and 14 agent definitions.
 
 ## Quick Start
 
@@ -85,7 +85,7 @@ Or just describe what you want: "I want to build..."
 | `find_skills` | List skills with optional category/tier/search filters |
 | `find_agents` | List available agent definitions |
 
-## Skills Library (40+)
+## Skills Library (46)
 
 ### Executive Suite
 Strategic leadership perspectives:
@@ -115,18 +115,21 @@ Technical leadership and architecture:
 ### Developer Specializations
 Domain expertise organized by category:
 
-**Core**: `frontend-developer`, `backend-developer`, `fullstack-developer`, `mobile-developer`
+**Core**: `frontend-developer`, `backend-developer`, `fullstack-developer`, `mobile-developer`, `api-designer`
 
 **Languages**: `typescript-pro`, `python-pro`, `rust-engineer`, `golang-pro`, `java-architect`
 
-**Infrastructure**: `devops-engineer`, `cloud-architect`, `kubernetes-specialist`, `platform-engineer`, `security-engineer`, `sre-engineer`
+**Infrastructure**: `devops-engineer`, `cloud-architect`, `kubernetes-specialist`, `platform-engineer`, `security-engineer`, `sre-engineer`, `database-architect`
 
 **Data & AI**: `data-engineer`, `data-scientist`, `ml-engineer`, `llm-architect`
 
-**Quality**: `qa-expert`, `performance-engineer`, `security-auditor`, `accessibility-tester`
+**Quality**: `qa-expert`, `performance-engineer`, `security-auditor`, `accessibility-tester`, `test-automation-engineer`
+
+**Design**: `ui-ux-designer`
 
 ### Specialists
 - `locus:compliance-specialist` - Regulatory compliance
+- `locus:technical-writer` - Documentation and technical writing
 
 ## Agents (14)
 
@@ -141,13 +144,14 @@ Pre-configured agent definitions for specialized perspectives:
 ## Project Structure
 
 ```
-skills/                  # 40+ skill definitions
+skills/                  # 46 skill definitions
 ├── using-locus/         # Main bootstrap skill
 ├── 01-executive-suite/  # C-suite perspectives
 ├── 02-product-management/
 ├── 03-engineering-leadership/
 ├── 04-developer-specializations/
 │   ├── core/
+│   ├── design/
 │   ├── languages/
 │   ├── infrastructure/
 │   ├── data-ai/
@@ -175,7 +179,7 @@ opencode.json            # OpenCode commands
 git clone https://github.com/SwiggitySwerve/locus-product-planning.git
 cd locus-product-planning
 npm install
-npm test        # 161 tests
+npm test        # 184 tests
 npm run build   # Compile TypeScript
 ```
 

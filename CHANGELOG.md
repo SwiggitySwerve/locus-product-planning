@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.0] - 2025-01-22
+
+### Added
+- **5 New Skills** (46 total):
+  - `ui-ux-designer` - User interface and experience design, design systems, user research
+  - `database-architect` - Database design, data modeling, query optimization, scalability
+  - `api-designer` - REST/GraphQL API design, versioning, documentation
+  - `technical-writer` - Technical documentation, API docs, user guides, ADRs
+  - `test-automation-engineer` - E2E automation, CI/CD pipelines, Playwright/Cypress
+- **New Design Category**: Added `design/` subcategory under developer-specializations
+- **CI/CD Improvements**:
+  - npm OIDC trusted publishing (no classic tokens)
+  - Improved GitHub Actions workflows
+
+### Changed
+- Updated skill count from 41 to 46
+- Enhanced README with new skills documentation
+
 ## [1.1.0] - 2025-01-22
 
 ### Added
@@ -27,7 +45,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Plugin Metadata**:
   - `.claude-plugin/plugin.json` for Claude marketplace
   - `.claude-plugin/marketplace.json` for discoverability
-- **Testing**: 23 new tests for skills-core utilities (161 total)
+- **Testing**: 23 new tests for skills-core utilities (184 total)
 
 ### Changed
 - Reorganized skills from `.opencode/skills/locus/` to `skills/` directory

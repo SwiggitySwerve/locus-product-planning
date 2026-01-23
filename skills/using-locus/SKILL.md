@@ -72,15 +72,17 @@ Technical leadership and architecture:
 
 ### Developer Specializations (04-developer-specializations/)
 Domain expertise in:
-- **Core**: frontend, backend, fullstack, mobile
+- **Core**: frontend, backend, fullstack, mobile, api-designer
+- **Design**: ui-ux-designer
 - **Languages**: typescript, python, rust, golang, java
-- **Infrastructure**: devops, cloud, kubernetes, platform, security, sre
+- **Infrastructure**: devops, cloud, kubernetes, platform, security, sre, database-architect
 - **Data & AI**: data-engineer, data-scientist, ml-engineer, llm-architect
-- **Quality**: qa, performance, security-auditor, accessibility
+- **Quality**: qa, performance, security-auditor, accessibility, test-automation-engineer
 
 ### Specialists (05-specialists/)
 Specialized domain expertise:
 - `locus:compliance-specialist` - Regulatory compliance
+- `locus:technical-writer` - Documentation and technical writing
 
 ## Skill Priority
 
