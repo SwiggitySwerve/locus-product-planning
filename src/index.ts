@@ -42,7 +42,7 @@ export const LocusPlugin: Plugin = async ({ client, directory }) => {
       /**
        * Load and read a specific skill to guide work
        */
-      use_skill: tool({
+      locus_skill: tool({
         description: 'Load and read a specific skill to guide your work.',
         args: {
           skill_name: tool.schema.string().describe('Name of the skill to load')
@@ -94,7 +94,7 @@ export const LocusPlugin: Plugin = async ({ client, directory }) => {
       /**
        * List all available skills
        */
-      find_skills: tool({
+      locus_skills: tool({
         description: 'List all available skills.',
         args: {
           category: tool.schema.string().optional().describe('Filter by category'),
@@ -172,7 +172,7 @@ export const LocusPlugin: Plugin = async ({ client, directory }) => {
       /**
        * List all available agents
        */
-      find_agents: tool({
+      locus_agents: tool({
         description: 'List all available agent definitions.',
         args: {},
         execute: async () => {

@@ -136,8 +136,8 @@ describe('Plugin Integration', () => {
       
       expect(content).not.toBeNull();
       expect(content).toContain('EXTREMELY_IMPORTANT');
-      expect(content).toContain('use_skill');
-      expect(content).toContain('find_skills');
+      expect(content).toContain('locus_skill');
+      expect(content).toContain('locus_skills');
     });
 
     it('should generate compact bootstrap content', () => {
@@ -205,10 +205,9 @@ describe('Plugin Integration', () => {
 
       expect(plugin).toBeDefined();
       expect(plugin.tool).toBeDefined();
-      expect(plugin.tool?.use_skill).toBeDefined();
-      expect(plugin.tool?.find_skills).toBeDefined();
-      expect(plugin.tool?.find_agents).toBeDefined();
-      expect(plugin.event).toBeDefined();
+      expect(plugin.tool?.locus_skill).toBeDefined();
+      expect(plugin.tool?.locus_skills).toBeDefined();
+      expect(plugin.tool?.locus_agents).toBeDefined();
     });
   });
 
@@ -236,8 +235,8 @@ describe('Plugin Integration', () => {
       plugin = await LocusPlugin(mockInput as any);
     });
 
-    it('find_skills should return skills', async () => {
-      const result = await plugin.tool!.find_skills.execute({}, { sessionID: 'test', agent: 'test' } as any);
+    it('locus_skills should return skills', async () => {
+      const result = await plugin.tool!.locus_skills.execute({}, { sessionID: 'test', agent: 'test' } as any);
 
       // Should find some skills (from any source)
       expect(result).toMatch(/Found \d+ skill/);
@@ -245,10 +244,10 @@ describe('Plugin Integration', () => {
       expect(result).toContain('## ');
     });
 
-    it('find_skills should filter by tier when locus skills available', async () => {
+    it('locus_skills should filter by tier when locus skills available', async () => {
       // This test works best with the compiled dist version
       // where locus skills are properly resolved
-      const result = await plugin.tool!.find_skills.execute(
+      const result = await plugin.tool!.locus_skills.execute(
         { tier: 'executive' },
         { sessionID: 'test', agent: 'test' } as any
       );
@@ -257,9 +256,9 @@ describe('Plugin Integration', () => {
       expect(typeof result).toBe('string');
     });
 
-    it('find_skills should filter by category when locus skills available', async () => {
+    it('locus_skills should filter by category when locus skills available', async () => {
       // This test works best with the compiled dist version
-      const result = await plugin.tool!.find_skills.execute(
+      const result = await plugin.tool!.locus_skills.execute(
         { category: 'core' },
         { sessionID: 'test', agent: 'test' } as any
       );
@@ -267,8 +266,8 @@ describe('Plugin Integration', () => {
       expect(typeof result).toBe('string');
     });
 
-    it('find_skills should filter by search term', async () => {
-      const result = await plugin.tool!.find_skills.execute(
+    it('locus_skills should filter by search term', async () => {
+      const result = await plugin.tool!.locus_skills.execute(
         { search: 'kubernetes' },
         { sessionID: 'test', agent: 'test' } as any
       );
@@ -276,16 +275,16 @@ describe('Plugin Integration', () => {
       expect(result).toContain('kubernetes');
     });
 
-    it('find_agents should return all agents', async () => {
-      const result = await plugin.tool!.find_agents.execute({}, { sessionID: 'test', agent: 'test' } as any);
+    it('locus_agents should return all agents', async () => {
+      const result = await plugin.tool!.locus_agents.execute({}, { sessionID: 'test', agent: 'test' } as any);
       
       expect(result).toContain('agents');
       expect(result).toContain('ceo-strategist');
       expect(result).toContain('tech-lead');
     });
 
-    it('use_skill should load existing skill', async () => {
-      const result = await plugin.tool!.use_skill.execute(
+    it('locus_skill should load existing skill', async () => {
+      const result = await plugin.tool!.locus_skill.execute(
         { skill_name: 'locus:ceo-strategist' },
         { sessionID: 'test', agent: 'test' } as any
       );
@@ -294,8 +293,8 @@ describe('Plugin Integration', () => {
       expect(result).toMatch(/Launching skill|ceo-strategist/i);
     });
 
-    it('use_skill should error on non-existent skill', async () => {
-      const result = await plugin.tool!.use_skill.execute(
+    it('locus_skill should error on non-existent skill', async () => {
+      const result = await plugin.tool!.locus_skill.execute(
         { skill_name: 'non-existent-skill' },
         { sessionID: 'test', agent: 'test' } as any
       );
@@ -351,8 +350,8 @@ describe('Plugin Integration', () => {
 
       const plugin = await CompiledPlugin(mockInput as any);
 
-      // find_skills should return locus skills, which means it found the skills directory
-      const result = await plugin.tool!.find_skills.execute({}, { sessionID: 'test', agent: 'test' } as any);
+      // locus_skills should return locus skills, which means it found the skills directory
+      const result = await plugin.tool!.locus_skills.execute({}, { sessionID: 'test', agent: 'test' } as any);
       expect(result).toContain('locus:');
       expect(result).toContain('ceo-strategist');
     });
@@ -377,17 +376,17 @@ describe('Plugin Integration', () => {
       const plugin = await LocusPlugin(mockInput as any);
 
       // All tool execute functions should return strings
-      const findSkillsResult = await plugin.tool!.find_skills.execute({}, { sessionID: 'test', agent: 'test' } as any);
-      expect(typeof findSkillsResult).toBe('string');
+      const locusSkillsResult = await plugin.tool!.locus_skills.execute({}, { sessionID: 'test', agent: 'test' } as any);
+      expect(typeof locusSkillsResult).toBe('string');
 
-      const findAgentsResult = await plugin.tool!.find_agents.execute({}, { sessionID: 'test', agent: 'test' } as any);
-      expect(typeof findAgentsResult).toBe('string');
+      const locusAgentsResult = await plugin.tool!.locus_agents.execute({}, { sessionID: 'test', agent: 'test' } as any);
+      expect(typeof locusAgentsResult).toBe('string');
 
-      const useSkillResult = await plugin.tool!.use_skill.execute(
+      const locusSkillResult = await plugin.tool!.locus_skill.execute(
         { skill_name: 'locus:ceo-strategist' },
         { sessionID: 'test', agent: 'test' } as any
       );
-      expect(typeof useSkillResult).toBe('string');
+      expect(typeof locusSkillResult).toBe('string');
     });
   });
 });
