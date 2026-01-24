@@ -630,14 +630,14 @@ export function getBootstrapContent(
   const content = stripFrontmatter(fullContent);
 
   const toolMapping = compact
-    ? `**Tool Mapping:** TodoWrite->update_plan, Task->@mention, Skill->use_skill
+    ? `**Tool Mapping:** TodoWrite->update_plan, Task->@mention, Skill->locus_skill
 
 **Skills naming (priority order):** project: > personal: > locus:`
     : `**Tool Mapping for OpenCode:**
 When skills reference tools you don't have, substitute OpenCode equivalents:
 - \`TodoWrite\` -> \`update_plan\`
 - \`Task\` tool with subagents -> Use OpenCode's subagent system (@mention)
-- \`Skill\` tool -> \`use_skill\` custom tool
+- \`Skill\` tool -> \`locus_skill\` custom tool
 - \`Read\`, \`Write\`, \`Edit\`, \`Bash\` -> Your native tools
 
 **Skills naming (priority order):**

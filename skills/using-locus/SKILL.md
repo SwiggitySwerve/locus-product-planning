@@ -13,7 +13,7 @@ This is not negotiable. This is not optional. You cannot rationalize your way ou
 
 ## How to Access Skills
 
-**In OpenCode:** Use the `use_skill` tool. When you invoke a skill, its content is loaded and presented to you - follow it directly.
+**In OpenCode:** Use the `locus_skill` tool. When you invoke a skill, its content is loaded and presented to you - follow it directly.
 
 **In Claude Code:** Use the `Skill` tool if available, or load from the skills directory.
 
@@ -121,6 +121,6 @@ Use `/locus` to start a planning session, or say "I want to build..."
 
 | Tool | Description |
 |------|-------------|
-| `use_skill` | Load a specific skill |
-| `find_skills` | List all available skills |
-| `find_agents` | List all available agents |
+| `locus_skill` | Load a specific skill |
+| `locus_skills` | List all available skills |
+| `locus_agents` | List all available agents |

@@ -81,9 +81,9 @@ Or just describe what you want: "I want to build..."
 
 | Tool | Description |
 |------|-------------|
-| `use_skill` | Load a skill by name (e.g., `locus:product-manager`) |
-| `find_skills` | List skills with optional category/tier/search filters |
-| `find_agents` | List available agent definitions |
+| `locus_skill` | Load a skill by name (e.g., `locus:product-manager`) |
+| `locus_skills` | List skills with optional category/tier/search filters |
+| `locus_agents` | List available agent definitions |
 
 ## Skills Library (46)
 
